@@ -11,6 +11,12 @@ Modified to remove Playready DRM instead of Widevine.
 
 
 ## Usage
+
+1. Run `install.bat`
+   
+2. Activate venv using `venv.cmd`.
+
+
 ### Config
 
 `vinetrimmer.yml` located within the `/vinetrimmer/` folder.
@@ -38,6 +44,7 @@ Usage: vt.cmd [OPTIONS] COMMAND [ARGS]...
 Options:
 | Command line argument      | Description                                                                                   | Default Value                     |
 |----------------------------|-----------------------------------------------------------------------------------------------|-----------------------------------|
+|  -d, --debug               | Flag to enable debug logging                                                                  |  False                            |
 |  -p, --profile             | Profile to use when multiple profiles are defined for a service.                              |  "default"                        |
 |  -q, --quality             | Download Resolution                                                                           |  1080                             |
 |  -v, --vcodec              | Video Codec                                                                                   |  H264                             |
@@ -92,6 +99,8 @@ Usage: vt.cmd AMZN [OPTIONS] [TITLE]
   UHD@L1/SL3000
   FHD@L3(ChromeCDM)/SL2000
   SD@L3
+
+  Certain SL2000 can do UHD
   ```
   Maintains their own license server like Netflix, be cautious.
   
@@ -102,6 +111,7 @@ Usage: vt.cmd AMZN [OPTIONS] [TITLE]
 
   vt dl --list -z uk -q 1080 Amazon B09SLGYLK8
 
+Below flags to be passed after the `AMZN` or `Amazon` keyword in command.
 
 |  Command Line Switch                | Description                                                                                         |
 |-------------------------------------|-----------------------------------------------------------------------------------------------------|
@@ -124,6 +134,11 @@ Login and get to the code pair page. Extract cookies from that page using [Open 
 
 Save it to the path `vinetrimmer/Cookies/Amazon/default.txt`.
 
+When caching cookies, use a profile without PIN. Otherwise it causes errors.
+
+### Peacock 
+
+ - PCOK bans leaked certs quickly (for 4k), be cautious.
 
 ### Example Command
 
@@ -186,8 +201,10 @@ Tested so far on Amazon, AppleTVPlus, Max.
     ```
 
 ## Other
-
-Activate venv then, to use programs in `scripts` folder use like below
-```bash
-poetry run python scripts/ParseKeybox.py
-```
+ - For `--keys` to work with ATVP you need to pass the `--no-subs` flag also
+ - Nuikta compile is an option to run on various linux distributions.
+ - Errors arise when running VT within Docker or Conda like python distributions. Make sure to use proper python3.
+ - To use programs in `scripts` folder, first activate venv then, then - 
+      ```bash
+      poetry run python scripts/ParseKeybox.py
+      ```
