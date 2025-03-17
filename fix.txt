@@ -1,0 +1,54 @@
+D:\PlayReady-Amazon-Tool-main>poetry run vt dl -al en -sl en --selected --keys --cdm hisense_smarttv_he55a7000euwts_sl3000 AMZN -vq UHD -b CVBR+CBR https://www.primevideo.com/detail/0I1GTXP9ZKTV7AAD7E1LCWJCUX/
+2025-02-07 22:26:57 [I] vt : vinetrimmer - Widevine DRM downloader and decrypter
+2025-02-07 22:26:57 [I] vt : [Root Config]     : D:\PlayReady-Amazon-Tool-main\vinetrimmer\vinetrimmer.yml
+2025-02-07 22:26:57 [I] vt : [Service Configs] : D:\PlayReady-Amazon-Tool-main\vinetrimmer\Services
+2025-02-07 22:26:57 [I] vt : [Cookies]         : D:\PlayReady-Amazon-Tool-main\vinetrimmer\Cookies
+2025-02-07 22:26:57 [I] vt : [CDM Devices]     : D:\PlayReady-Amazon-Tool-main\vinetrimmer\devices
+2025-02-07 22:26:57 [I] vt : [Cache]           : D:\PlayReady-Amazon-Tool-main\vinetrimmer\Cache
+2025-02-07 22:26:57 [I] vt : [Logs]            : D:\PlayReady-Amazon-Tool-main\vinetrimmer\Logs
+2025-02-07 22:26:57 [I] vt : [Temp Files]      : D:\PlayReady-Amazon-Tool-main\Temp
+2025-02-07 22:26:57 [I] vt : [Downloads]       : D:\PlayReady-Amazon-Tool-main\Downloads
+2025-02-07 22:26:57 [I] dl :  + 1 Local Vault
+2025-02-07 22:26:57 [I] dl :  + 0 Remote Vaults
+2025-02-07 22:26:57 [I] dl :  + Loaded Device: hisense_smarttv_he55a7000euwts_sl3000 (L3000)
+2025-02-07 22:26:57 [I] AMZN : Getting Account Region
+2025-02-07 22:26:59 [I] AMZN :  + Region: us
+2025-02-07 22:26:59 [I] AMZN :  + Using cached device bearer
+2025-02-07 22:26:59 [I] AMZN : Retrieving Titles
+2025-02-07 22:27:00 [I] Titles : Title: I Was Not Ready Da
+2025-02-07 22:27:00 [I] AMZN : Getting tracks for I Was Not Ready Da (2020) [amzn1.dv.gti.30baee18-aa4c-1fc2-72cc-6e11d5e627d9]
+2025-02-07 22:27:01 [I] AMZN :  + Detected encodingVersion=2
+2025-02-07 22:27:01 [I] AMZN :  + Downloading CVBR MPD
+2025-02-07 22:27:02 [I] AMZN :  + Detected encodingVersion=2
+2025-02-07 22:27:02 [I] AMZN :  + Downloading CBR MPD
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "D:\PlayReady-Amazon-Tool-main\.venv\lib\site-packages\click\core.py", line 1161, in __call__
+    return self.main(*args, **kwargs)
+  File "D:\PlayReady-Amazon-Tool-main\.venv\lib\site-packages\click\core.py", line 1082, in main
+    rv = self.invoke(ctx)
+  File "D:\PlayReady-Amazon-Tool-main\.venv\lib\site-packages\click\core.py", line 1443, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "D:\PlayReady-Amazon-Tool-main\.venv\lib\site-packages\click\core.py", line 788, in invoke
+    return __callback(*args, **kwargs)
+  File "D:\PlayReady-Amazon-Tool-main\vinetrimmer\vinetrimmer.py", line 72, in main
+    dl()
+  File "D:\PlayReady-Amazon-Tool-main\.venv\lib\site-packages\click\core.py", line 1161, in __call__
+    return self.main(*args, **kwargs)
+  File "D:\PlayReady-Amazon-Tool-main\.venv\lib\site-packages\click\core.py", line 1082, in main
+    rv = self.invoke(ctx)
+  File "D:\PlayReady-Amazon-Tool-main\.venv\lib\site-packages\click\core.py", line 1697, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+  File "D:\PlayReady-Amazon-Tool-main\.venv\lib\site-packages\click\core.py", line 1666, in _process_result
+    value = ctx.invoke(self._result_callback, value, **ctx.params)
+  File "D:\PlayReady-Amazon-Tool-main\.venv\lib\site-packages\click\core.py", line 788, in invoke
+    return __callback(*args, **kwargs)
+  File "D:\PlayReady-Amazon-Tool-main\.venv\lib\site-packages\click\decorators.py", line 33, in new_func
+    return f(get_current_context(), *args, **kwargs)
+  File "D:\PlayReady-Amazon-Tool-main\vinetrimmer\commands\dl.py", line 309, in result
+    title.tracks.add(service.get_tracks(title), warn_only=True)
+  File "D:\PlayReady-Amazon-Tool-main\vinetrimmer\services\amazon.py", line 321, in get_tracks
+    manifest, chosen_manifest, tracks = self.get_best_quality(title)
+  File "D:\PlayReady-Amazon-Tool-main\vinetrimmer\services\amazon.py", line 1051, in get_best_quality
+    best_quality = max(track_list, key=lambda x: x['max_size'])
+TypeError: '>' not supported between instances of 'NoneType' and 'NoneType'

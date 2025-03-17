@@ -1,0 +1,64 @@
+[build-system]
+requires = ['poetry-core>=1.0.0']
+build-backend = 'poetry.core.masonry.api'
+
+[tool.poetry]
+name = 'vinetrimmer'
+version = '0.1.0'
+description = 'Playready DRM downloader and decrypter'
+authors = []
+
+[tool.poetry.dependencies]
+python = "^3.8"
+appdirs = "^1.4.4"
+beautifulsoup4 = "~4.8.2"
+click = "^8.0.1"
+cffi = "^1.16.0"
+coloredlogs = "^15.0"
+construct = "2.8.8"
+crccheck = "^1.0"
+cryptography = "^43.0.3"
+ecpy = "^1.2.5"
+httpx = "^0.23.0"
+isodate = "^0.6.1"
+jsonpickle = "^2.0.0"
+langcodes = { extras = ["data"], version = "^3.1.0" }
+lxml = "^4.6.3"
+m3u8 = "^0.9.0"
+marisa-trie = "^1.1.0"
+poetry = "1.8.5"
+pproxy = "^2.7.7"
+protobuf3 = { path = "./scripts/protobuf3", develop = true }
+pycaption = "^2.1.1"
+pycryptodome = "^3.21.0"
+pycryptodomex = "^3.4.3"
+pyhulu = "^1.1.2"
+pymediainfo = "^5.0.3"
+PyMySQL = { extras = ["rsa"], version = "^1.0.2" }
+pymp4 = "^1.4.0"
+pyplayready = { path = "./scripts/pyplayready", develop = true }
+pywidevine = { path = "./scripts/pywidevine", develop = true }
+pysubs2 = "^1.6.1"
+PyYAML = "^6.0.1"
+requests = { extras = ["socks"], version = "2.32.3" }
+tldextract = "^3.1.0"
+toml = "^0.10.2"
+tqdm = "^4.67.0"
+Unidecode = "^1.2.0"
+validators = "^0.18.2"
+websocket-client = "^1.1.0"
+xmltodict = "^0.14.0"
+yt-dlp = "^2022.11.11"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^3.8.4"
+isort = "^5.9.2"
+pyinstaller = "^4.4"
+
+[tool.poetry.scripts]
+vt = 'vinetrimmer.vinetrimmer:main'
+
+[tool.isort]
+line_length = 120
+classes = ['CTV', 'FPS', 'IO', 'iTunes', 'MP4', 'TVNOW']
+extend_skip = ['vinetrimmer/vendor']

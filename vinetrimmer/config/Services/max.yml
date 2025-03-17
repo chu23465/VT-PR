@@ -1,0 +1,8 @@
+endpoints:
+  contentRoutes: 'https://default.any-any.prd.api.max.com/cms/routes/%s/%s?include=default'
+  moviePages: 'https://default.any-any.prd.api.max.com/content/videos/%s/activeVideoForShow?&include=edit'
+  playbackInfo: 'https://default.any-any.prd.api.max.com/any/playback/v1/playbackInfo'
+  showPages: 'https://default.any-any.prd.api.max.com/cms/collections/generic-show-page-rail-episodes-tabbed-content?include=default&pf[show.id]=%s&%s'
+account:
+  email: 'marccin1996@gmail.com'
+  pass: 'MarcinPawlak1996'

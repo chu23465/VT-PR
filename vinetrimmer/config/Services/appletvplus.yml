@@ -1,0 +1,7 @@
+user_agent: 'ATVE/6.2.0 Android/10 build/6A226 maker/Google model/Chromecast FW/QTS2.200918.0337115981'  # AppleTV6,2/11.1 | ATVE/1.1 FireOS/6.2.6.8 build/4A93 maker/Amazon model/FireTVStick4K FW/NS6268/2315
+
+endpoints:
+  title: 'https://tv.apple.com/api/uts/v3/{type}/{id}'
+  tv_episodes: 'https://tv.apple.com/api/uts/v2/view/show/{id}/episodes'
+  manifest: 'https://tv.apple.com/api/uts/v2/view/product/{id}/personalized'
+  license:  'https://play.itunes.apple.com/WebObjects/MZPlay.woa/wa/fpsRequest'  # 'https://play.itunes.apple.com/WebObjects/MZPlay.woa/web/video/subscription/license'

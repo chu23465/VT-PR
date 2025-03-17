@@ -1,0 +1,149 @@
+1. Install python 3.12.xx, 3.11.xx, 3.10.xx, 3.9.xx or 3.8.xx, be sure to add python to PATH while installing it
+
+2. Install Microsoft Visual C++ Redistributable
+
+https://aka.ms/vs/17/release/vc_redist.x64.exe
+
+3. Run install.bat
+
+4. For Netflix go to the folder vinetrimmer and add your email and password of Netflix in vinetrimmer\vinetrimmer.yml (open the file with Notepad++), you do not need adding your credentials for Amazon, Peacock, GooglePlay and Hulu, just the cookies file, the cookies file name will always be default.txt.
+
+5. Install this Firefox add-on
+
+https://addons.mozilla.org/en-US/firefox/addon/cookies-txt-one-click/
+
+for Chrome install this extension
+
+https://chrome.google.com/webstore/detail/open-cookiestxt/gdocmgbfkjnnpapoeobnolbbkoibbcif
+
+and go to netflix.com and download the cookies, rename the file to default.txt and put it in
+
+vinetrimmer\Cookies\Netflix
+
+For Amazon go to amazon.com and download the cookies, rename the file to default.txt and put it in
+
+vinetrimmer\Cookies\Amazon
+
+For Peacock go to peacocktv.com and download the cookies, rename the file to default.txt and put it in
+
+vinetrimmer\Cookies\Peacock
+
+For Hulu go to https://www.hulu.com and download the cookies, rename the file to default.txt and put it in
+
+vinetrimmer\Cookies\Hulu
+
+6. For Netflix you will need to add the esn in Netflix.yml which is in the folder vinetrimmer\config\services
+use the examples from the file Netflix.yml from the folder example_configs to understand how to add the correct esn.
+
+7. For downloading the video of an episode from Netflix use (to download in HIGH profile use -p HPL and to download in MAIN profile use -p MPL)
+
+poetry run vt dl -q 540 -al en -sl en -w S01E1 Netflix -p HPL 80189685
+
+The script does not support decrypting the videos with MAIN or HIGH profiles in 1080p or 720p (only MAIN profile in 480p and HIGH profile in 540p will get decrypted) using cdm l3, you will need cdm l1 for MAIN or HIGH 1080p and 720p.
+ 
+If you want to downlod the video for a specific seasons or all the seasons use
+
+poetry run vt dl -q 540 -al en -sl en -w S01 Netflix -p HPL 80189685
+
+poetry run vt dl -q 540 -al en -sl en -w S01,S03 Netflix -p HPL 80189685
+
+poetry run vt dl -q 540 -al en -sl en -w S01-S05 Netflix -p HPL 80189685
+
+To download the video of a movie use
+
+poetry run vt dl -q 540 -al en -sl en Netflix -p HPL 81252357
+
+To download multiple audio languages use
+
+poetry run vt dl -q 540 -al en,es,fr -sl en Netflix -p HPL 81252357
+
+To downlaod all the audio languages use
+
+poetry run vt dl -q 540 -al all -sl en Netflix -p HPL 81252357
+
+If you did not choose a language for the audio the script will download the original audio language, and if you did not choose a language for the subtitles the script will download all the available subtitles.
+
+8. To download the video from amazon.com you will need to get the asin for the videos, 
+use this userscript for getting it
+
+https://greasyfork.org/en/scripts/381997-amazon-video-asin-display
+
+For downloading the video of an episode from amazon.com use
+
+poetry run vt dl -al en -sl en -w S06E1 Amazon -vq SD B09LGW8D3Q
+
+The script supports only downloading the videos in SD with cdm l3.
+ 
+If you want to downlod the video for a specific seasons use
+
+poetry run vt dl -al en -sl en -w S06 Amazon -vq SD B09LGW8D3Q
+
+9. For downloading the video of an episode from Peacock use
+
+poetry run vt dl -q 1080 -al en -w S01E1 Peacock /tv/the-office/4902514835143843112
+
+For downloading the video of a movie from Peacock use
+
+poetry run vt dl Peacock /movies/action-and-adventure/4got10/3ae2c66c-2b1a-3a34-a84f-930d60612b95
+
+10. For downloading the video of an episode from DisneyPlus use (cdm l3 is 720p only)
+
+poetry run vt dl -q 720 -w S01E01 DisneyPlus -s browser 57TL7zLNu2wf
+
+11. For downloading the video of a movie from Hulu in 1080p use
+
+poetry run vt dl Hulu -m 4800d468-b587-44de-bad8-2646588bfa6b
+
+12. If you got an error message while trying to download from google play about SAPISID remove from the cookies file the extra lines with the word SAPISID, just keep the first line with the word SAPISID
+
+13. For downloading a movie from ParamountPlus use
+
+poetry run vt dl https://www.paramountplus.com/movies/video/7juDj4xQPZG1xtvD0pDPRQWgv1Vj6xox/
+
+For downloading an episode from ParamountPlus use
+
+poetry run vt dl -w S01E1 https://www.paramountplus.com/shows/1883/
+
+
+for more options use
+
+poetry run vt dl -h
+
+for the extra options in the scripts use
+
+poetry run vt dl Hulu -h
+
+instead of Hulu add the service name
+
+the extra options will be added after the service name
+
+To use your cdm l3 in the folder vinetrimmer\devices create a new folder for the cdm l3 and copy the files device_private_key and device_client_id_blob to it like vinetrimmer\devices\generic_4464_l3 and create a new text file and rename it to wv.json and in the file wv.json add something like
+
+{
+"name": "generic_4464_l3",
+"description": "android generic 4464 l3",
+"security_level": 3,
+"session_id_type": "android",
+"private_key_available": "True",
+"vmp": "False",
+"send_key_control_nonce": "True"
+}
+
+change the name and the description to match the cdm l3 you have.
+
+for cdm l1 use 
+
+"security_level": 1,
+
+open the file vinetrimmer\vinetrimmer.yml with Notepad++ and add your cdm l3 name like this
+
+cdm:
+  default: 'generic_4464_l3'
+
+
+
+
+
+
+
+

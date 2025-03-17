@@ -1,0 +1,44 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "pyplayready"
+version = "0.5.0"
+description = "pyplayready CDM (Content Decryption Module) implementation in Python."
+license = "CC BY-NC-ND 4.0"
+authors = ["DevLARLEY, Erevoc", "DevataDev"]
+readme = "README.md"
+repository = "https://github.com/ready-dl/pyplayready"
+keywords = ["python", "drm", "playready", "microsoft"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Intended Audience :: End Users/Desktop",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Topic :: Multimedia :: Video",
+  "Topic :: Security :: Cryptography",
+  "Topic :: Software Development :: Libraries :: Python Modules"
+]
+include = [
+  { path = "README.md", format = "sdist" },
+  { path = "LICENSE", format = "sdist" },
+]
+
+[tool.poetry.urls]
+"Issues" = "https://github.com/ready-dl/pyplayready/issues"
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4.0"
+requests = "^2.32.3"
+pycryptodome = "^3.21.0"
+construct = "^2.8.8"
+ECPy = "^1.2.5"
+click = "^8.1.7"
+xmltodict = "^0.14.2"
+PyYAML = "^6.0.1"
+aiohttp = {version = "^3.9.1", optional = true}
+
+[tool.poetry.scripts]
+pyplayready = "pyplayready.main:main"

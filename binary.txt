@@ -1,0 +1,23 @@
+dl -al en -sl en --keys -q 2160 --cdm hisense_smarttv_he55a7000euwts_sl3000 -r HDR --selected -w S05E08-S05E24 AMZN -b CBR -vq UHD 0IQZZIJ6W6TT2CXPT6ZOZYX396
+
+
+--include-data-files=/path/to/scan=folder_name=**/*.txt
+--include-data-files=/path/to/file/*.txt=folder_name/some.txt
+--include-data-files="./vinetrimmer/services/*.py"=vinetrimmer/services/
+
+--onefile --> if this flag then figure out how to set the directories to NOT TEMP folder
+
+python -m nuitka --onefile --assume-yes-for-downloads --windows-console-mode=disable --show-progress --standalone --output-dir=dist --static-libpython=no vinetrimmer1.py --include-data-dir=./vinetrimmer/=vinetrimmer --include-data-dir=./binaries/=binaries --include-data-dir=./scripts/=scripts
+python -m nuitka --onefile --standalone --output-dir=dist vinetrimmer1.py --include-data-dir=./vinetrimmer/services/=vinetrimmer/services --include-data-dir=./vinetrimmer/config/=vinetrimmer/config/ --include-data-dir=./vinetrimmer/config/Services/=vinetrimmer/config/Services/ --include-data-dir=./scripts/=scripts
+python -m nuitka --onefile --standalone --windows-console-mode=attach --output-dir=dist vinetrimmer1.py  --include-data-dir=./vinetrimmer/=vinetrimmer/ --include-data-dir=./vinetrimmer/services/*.py=vinetrimmer/services/=**/*.py --include-data-dir=./vinetrimmer/config/=vinetrimmer/config/ --include-data-dir=./vinetrimmer/config/Services/=vinetrimmer/config/Services/ --include-data-dir=./scripts/=scripts/
+python -m nuitka --onefile --standalone --windows-console-mode=attach --output-dir=dist vinetrimmer1.py  --include-data-dir=./vinetrimmer/=vinetrimmer/ --include-data-files=./vinetrimmer/services/*.py=vinetrimmer/services/ --include-data-dir=./vinetrimmer/config/=vinetrimmer/config/ --include-data-dir=./vinetrimmer/config/Services/=vinetrimmer/config/Services/ --include-data-dir=./scripts/=scripts/
+python -m nuitka --mode=standalone --output-dir=dist --windows-console-mode=force vinetrimmer1.py --include-data-dir=./vinetrimmer/=vinetrimmer/ --include-data-files="./vinetrimmer/services/*.py"=vinetrimmer/services/ --include-data-dir=./vinetrimmer/config/=vinetrimmer/config/ --include-data-dir=./vinetrimmer/config/Services/=vinetrimmer/config/Services/ --include-data-dir=./scripts/=scripts/
+python -m nuitka --onefile --follow-imports --output-dir=dist --windows-console-mode=force vinetrimmer1.py --include-data-dir=./vinetrimmer/=vinetrimmer/ --include-data-files="./vinetrimmer/services/*.py"=vinetrimmer/services/ --include-data-dir=./vinetrimmer/config/=vinetrimmer/config/ --include-data-dir=./vinetrimmer/config/Services/=vinetrimmer/config/Services/ --include-data-dir=./scripts/=scripts/ --include-data-files="./vinetrimmer/config/*.py"=vinetrimmer/config/
+python -m nuitka --onefile --follow-imports --output-dir=dist --standalone --clang --windows-console-mode=force --show-memory vinetrimmer1.py --include-data-dir=./vinetrimmer/=vinetrimmer/ --include-data-files="./vinetrimmer/services/*.py"=vinetrimmer/services/ --include-data-dir=./vinetrimmer/config/=vinetrimmer/config/ --include-data-dir=./vinetrimmer/config/Services/=vinetrimmer/config/Services/ --include-data-dir=./scripts/=scripts/ --include-data-files="./vinetrimmer/config/*.py"=vinetrimmer/config/
+
+python -m nuitka --follow-imports --output-dir=dist --standalone --clang --windows-console-mode=force --show-memory vinetrimmer1.py --include-data-dir=./vinetrimmer/=vinetrimmer/ --include-data-files="./vinetrimmer/services/*.py"=vinetrimmer/services/ --include-data-dir=./vinetrimmer/config/=vinetrimmer/config/ --include-data-dir=./vinetrimmer/config/Services/=vinetrimmer/config/Services/ --include-data-dir=./scripts/=scripts/ --include-data-files="./vinetrimmer/config/*.py"=vinetrimmer/config/
+python -m nuitka --onefile --follow-imports --output-dir=dist --standalone --clang --windows-console-mode=force --show-memory vinetrimmer1.py --include-data-dir=./vinetrimmer/=vinetrimmer/  --include-data-dir=./vinetrimmer/config/=vinetrimmer/config/ --include-data-dir=./vinetrimmer/config/Services/=vinetrimmer/config/Services/ --include-data-dir=./scripts/=scripts/ --include-data-files="./vinetrimmer/config/*.py"=vinetrimmer/config/
+nuitka --output-dir=dist --standalone --windows-console-mode=force vinetrimmer1.py --include-data-dir=./vinetrimmer/=vinetrimmer/
+
+
+nuitka --onefile --output-dir=dist --windows-console-mode=force vt.py --include-data-dir=./vinetrimmer/=vinetrimmer/

@@ -1,0 +1,418 @@
+syntax = "proto2";
+
+package video_widevine;
+
+option java_package = "com.google.video.widevine.protos";
+option optimize_for = LITE_RUNTIME;
+
+enum LicenseType {
+  STREAMING = 1;
+  OFFLINE = 2;
+}
+
+enum ProtocolVersion {
+  VERSION_2_0 = 20;
+  VERSION_2_1 = 21;
+}
+
+message LicenseIdentification {
+  optional bytes request_id = 1;
+  optional bytes session_id = 2;
+  optional bytes purchase_id = 3;
+  optional .video_widevine.LicenseType type = 4;
+  optional int32 version = 5;
+  optional bytes provider_session_token = 6;
+}
+
+message License {
+  message Policy {
+    optional bool can_play = 1 [default = false];
+    optional bool can_persist = 2 [default = false];
+    optional bool can_renew = 3 [default = false];
+    optional int64 rental_duration_seconds = 4 [default = 0];
+    optional int64 playback_duration_seconds = 5 [default = 0];
+    optional int64 license_duration_seconds = 6 [default = 0];
+    optional int64 renewal_recovery_duration_seconds = 7 [default = 0];
+    optional string renewal_server_url = 8;
+    optional int64 renewal_delay_seconds = 9 [default = 0];
+    optional int64 renewal_retry_interval_seconds = 10 [default = 0];
+    optional bool renew_with_usage = 11 [default = false];
+    optional bool always_include_client_id = 12 [default = false];
+    optional int64 play_start_grace_period_seconds = 13 [default = 0];
+    optional bool soft_enforce_playback_duration = 14 [default = false];
+  }
+  message KeyContainer {
+    message KeyControl {
+      optional bytes key_control_block = 1;
+      optional bytes iv = 2;
+    }
+    message OutputProtection {
+      enum HDCP {
+        HDCP_NONE = 0;
+        HDCP_V1 = 1;
+        HDCP_V2 = 2;
+        HDCP_V2_1 = 3;
+        HDCP_V2_2 = 4;
+        HDCP_NO_DIGITAL_OUTPUT = 255;
+      }
+      enum CGMS {
+        CGMS_NONE = 42;
+        COPY_FREE = 0;
+        COPY_ONCE = 2;
+        COPY_NEVER = 3;
+      }
+      optional .video_widevine.License.KeyContainer.OutputProtection.HDCP hdcp = 1 [default = HDCP_NONE];
+      optional .video_widevine.License.KeyContainer.OutputProtection.CGMS cgms_flags = 2 [default = CGMS_NONE];
+    }
+    message VideoResolutionConstraint {
+      optional uint32 min_resolution_pixels = 1;
+      optional uint32 max_resolution_pixels = 2;
+      optional .video_widevine.License.KeyContainer.OutputProtection required_protection = 3;
+    }
+    message OperatorSessionKeyPermissions {
+      optional bool allow_encrypt = 1 [default = false];
+      optional bool allow_decrypt = 2 [default = false];
+      optional bool allow_sign = 3 [default = false];
+      optional bool allow_signature_verify = 4 [default = false];
+    }
+    enum KeyType {
+      SIGNING = 1;
+      CONTENT = 2;
+      KEY_CONTROL = 3;
+      OPERATOR_SESSION = 4;
+      SUB_SESSION = 5;
+    }
+    enum SecurityLevel {
+      SW_SECURE_CRYPTO = 1;
+      SW_SECURE_DECODE = 2;
+      HW_SECURE_CRYPTO = 3;
+      HW_SECURE_DECODE = 4;
+      HW_SECURE_ALL = 5;
+    }
+    optional bytes id = 1;
+    optional bytes iv = 2;
+    optional bytes key = 3;
+    optional .video_widevine.License.KeyContainer.KeyType type = 4;
+    optional .video_widevine.License.KeyContainer.SecurityLevel level = 5 [default = SW_SECURE_CRYPTO];
+    optional .video_widevine.License.KeyContainer.OutputProtection required_protection = 6;
+    optional .video_widevine.License.KeyContainer.OutputProtection requested_protection = 7;
+    optional .video_widevine.License.KeyContainer.KeyControl key_control = 8;
+    optional .video_widevine.License.KeyContainer.OperatorSessionKeyPermissions operator_session_key_permissions = 9;
+    repeated .video_widevine.License.KeyContainer.VideoResolutionConstraint video_resolution_constraints = 10;
+    optional bool anti_rollback_usage_table = 11 [default = false];
+    optional string track_label = 12;
+  }
+  optional .video_widevine.LicenseIdentification id = 1;
+  optional .video_widevine.License.Policy policy = 2;
+  repeated .video_widevine.License.KeyContainer key = 3;
+  optional int64 license_start_time = 4;
+  optional bool remote_attestation_verified = 5 [default = false];
+  optional bytes provider_client_token = 6;
+  optional uint32 protection_scheme = 7;
+  optional bytes srm_requirement = 8;
+  optional bytes srm_update = 9;
+}
+
+message LicenseRequest {
+  message ContentIdentification {
+    message CencDeprecated {
+      repeated bytes pssh = 1;
+      optional .video_widevine.LicenseType license_type = 2;
+      optional bytes request_id = 3;
+    }
+    message WebmDeprecated {
+      optional bytes header = 1;
+      optional .video_widevine.LicenseType license_type = 2;
+      optional bytes request_id = 3;
+    }
+    message ExistingLicense {
+      optional .video_widevine.LicenseIdentification license_id = 1;
+      optional int64 seconds_since_started = 2;
+      optional int64 seconds_since_last_played = 3;
+      optional bytes session_usage_table_entry = 4;
+    }
+    message InitData {
+      enum InitDataType {
+        CENC = 1;
+        WEBM = 2;
+      }
+      optional .video_widevine.LicenseRequest.ContentIdentification.InitData.InitDataType init_data_type = 1 [default = CENC];
+      optional bytes init_data = 2;
+      optional .video_widevine.LicenseType license_type = 3;
+      optional bytes request_id = 4;
+    }
+    optional .video_widevine.LicenseRequest.ContentIdentification.CencDeprecated cenc_id_deprecated = 1;
+    optional .video_widevine.LicenseRequest.ContentIdentification.WebmDeprecated webm_id_deprecated = 2;
+    optional .video_widevine.LicenseRequest.ContentIdentification.ExistingLicense existing_license = 3;
+    optional .video_widevine.LicenseRequest.ContentIdentification.InitData init_data = 4;
+  }
+  message SubSessionData {
+    optional string sub_session_key_id = 1;
+    optional uint32 nonce = 2;
+    optional string track_label = 3;
+  }
+  enum RequestType {
+    NEW = 1;
+    RENEWAL = 2;
+    RELEASE = 3;
+  }
+  optional .video_widevine.ClientIdentification client_id = 1;
+  optional .video_widevine.LicenseRequest.ContentIdentification content_id = 2;
+  optional .video_widevine.LicenseRequest.RequestType type = 3;
+  optional int64 request_time = 4;
+  optional bytes key_control_nonce_deprecated = 5;
+  optional .video_widevine.ProtocolVersion protocol_version = 6 [default = VERSION_2_0];
+  optional uint32 key_control_nonce = 7;
+  optional .video_widevine.EncryptedClientIdentification encrypted_client_id = 8;
+  repeated .video_widevine.LicenseRequest.SubSessionData sub_session_data = 9;
+}
+
+message LicenseError {
+  enum Error {
+    INVALID_DRM_DEVICE_CERTIFICATE = 1;
+    REVOKED_DRM_DEVICE_CERTIFICATE = 2;
+    SERVICE_UNAVAILABLE = 3;
+  }
+  optional .video_widevine.LicenseError.Error error_code = 1;
+}
+
+message MetricData {
+  message TypeValue {
+    optional .video_widevine.MetricData.MetricType type = 1;
+    optional int64 value = 2 [default = 0];
+  }
+  enum MetricType {
+    LATENCY = 1;
+    TIMESTAMP = 2;
+  }
+  optional string stage_name = 1;
+  repeated .video_widevine.MetricData.TypeValue metric_data = 2;
+}
+
+message RemoteAttestation {
+  optional .video_widevine.EncryptedClientIdentification certificate = 1;
+  optional bytes salt = 2;
+  optional bytes signature = 3;
+}
+
+message SignedMessage {
+  enum MessageType {
+    LICENSE_REQUEST = 1;
+    LICENSE = 2;
+    ERROR_RESPONSE = 3;
+    SERVICE_CERTIFICATE_REQUEST = 4;
+    SERVICE_CERTIFICATE = 5;
+  }
+  optional .video_widevine.SignedMessage.MessageType type = 1;
+  optional bytes msg = 2;
+  optional bytes signature = 3;
+  optional bytes session_key = 4;
+  optional .video_widevine.RemoteAttestation remote_attestation = 5;
+  repeated .video_widevine.MetricData metric_data = 6;
+}
+
+message SignedLicenseRequest {
+  optional .video_widevine.SignedMessage.MessageType type = 1;
+  optional .video_widevine.LicenseRequest msg = 2;
+  optional bytes signature = 3;
+  optional bytes session_key = 4;
+  optional .video_widevine.RemoteAttestation remote_attestation = 5;
+  repeated .video_widevine.MetricData metric_data = 6;
+}
+
+message SignedLicense {
+  optional .video_widevine.SignedMessage.MessageType type = 1;
+  optional .video_widevine.License msg = 2;
+  optional bytes signature = 3;
+  optional bytes session_key = 4;
+  optional .video_widevine.RemoteAttestation remote_attestation = 5;
+  repeated .video_widevine.MetricData metric_data = 6;
+}
+
+message GroupKeys {
+  message GroupKeyData {
+    optional string track_type = 1;
+    optional bytes key = 2;
+  }
+  enum GroupLicenseVersion {
+    GROUP_LICENSE_VERSION_1 = 0;
+    GROUP_LICENSE_VERSION_2 = 1;
+  }
+  repeated .video_widevine.License.KeyContainer key = 1 [deprecated = true];
+  optional bytes group_id = 2;
+  optional .video_widevine.GroupKeys.GroupLicenseVersion version = 3 [default = GROUP_LICENSE_VERSION_1];
+  repeated .video_widevine.GroupKeys.GroupKeyData key_data = 4;
+}
+
+message ProvisioningOptions {
+  enum CertificateType {
+    WIDEVINE_DRM = 0;
+    X509 = 1;
+  }
+  optional .video_widevine.ProvisioningOptions.CertificateType certificate_type = 1 [default = WIDEVINE_DRM];
+  optional string certificate_authority = 2;
+}
+
+message ProvisioningRequest {
+  optional .video_widevine.ClientIdentification client_id = 1;
+  optional .video_widevine.EncryptedClientIdentification encrypted_client_id = 5;
+  optional bytes nonce = 2;
+  optional .video_widevine.ProvisioningOptions options = 3;
+  optional bytes stable_id = 4;
+  optional bytes provider_id = 6;
+  optional bytes spoid = 7;
+}
+
+message ProvisioningResponse {
+  optional bytes device_rsa_key = 1;
+  optional bytes device_rsa_key_iv = 2;
+  optional bytes device_certificate = 3;
+  optional bytes nonce = 4;
+  optional bytes wrapping_key = 5;
+}
+
+message SignedProvisioningMessage {
+  enum ProtocolVersion {
+    VERSION_2 = 2;
+    VERSION_3 = 3;
+  }
+  optional bytes message = 1;
+  optional bytes signature = 2;
+  optional .video_widevine.SignedProvisioningMessage.ProtocolVersion protocol_version = 3 [default = VERSION_2];
+}
+
+message ClientIdentification {
+  message NameValue {
+    optional string name = 1;
+    optional string value = 2;
+  }
+  message ClientCapabilities {
+    enum HdcpVersion {
+      HDCP_NONE = 0;
+      HDCP_V1 = 1;
+      HDCP_V2 = 2;
+      HDCP_V2_1 = 3;
+      HDCP_V2_2 = 4;
+      HDCP_NO_DIGITAL_OUTPUT = 255;
+    }
+    enum CertificateKeyType {
+      RSA_2048 = 0;
+      RSA_3072 = 1;
+    }
+    optional bool client_token = 1 [default = false];
+    optional bool session_token = 2 [default = false];
+    optional bool video_resolution_constraints = 3 [default = false];
+    optional .video_widevine.ClientIdentification.ClientCapabilities.HdcpVersion max_hdcp_version = 4 [default = HDCP_NONE];
+    optional uint32 oem_crypto_api_version = 5;
+    optional bool anti_rollback_usage_table = 6 [default = false];
+    optional uint32 srm_version = 7;
+    optional bool can_update_srm = 8 [default = false];
+    repeated .video_widevine.ClientIdentification.ClientCapabilities.CertificateKeyType supported_certificate_key_type = 9;
+  }
+  enum TokenType {
+    KEYBOX = 0;
+    DRM_DEVICE_CERTIFICATE = 1;
+    REMOTE_ATTESTATION_CERTIFICATE = 2;
+    OEM_DEVICE_CERTIFICATE = 3;
+  }
+  optional .video_widevine.ClientIdentification.TokenType type = 1 [default = KEYBOX];
+  optional bytes token = 2;
+  repeated .video_widevine.ClientIdentification.NameValue client_info = 3;
+  optional bytes provider_client_token = 4;
+  optional uint32 license_counter = 5;
+  optional .video_widevine.ClientIdentification.ClientCapabilities client_capabilities = 6;
+  optional bytes vmp_data = 7;
+}
+
+message EncryptedClientIdentification {
+  optional string provider_id = 1;
+  optional bytes service_certificate_serial_number = 2;
+  optional bytes encrypted_client_id = 3;
+  optional bytes encrypted_client_id_iv = 4;
+  optional bytes encrypted_privacy_key = 5;
+}
+
+message DrmDeviceCertificate {
+  enum CertificateType {
+    ROOT = 0;
+    DRM_INTERMEDIATE = 1;
+    DRM_USER_DEVICE = 2;
+    SERVICE = 3;
+    PROVISIONER = 4;
+  }
+  optional .video_widevine.DrmDeviceCertificate.CertificateType type = 1;
+  optional bytes serial_number = 2;
+  optional uint32 creation_time_seconds = 3;
+  optional bytes public_key = 4;
+  optional uint32 system_id = 5;
+  optional bool test_device_deprecated = 6 [deprecated = true];
+  optional string provider_id = 7;
+}
+
+message DeviceCertificateStatus {
+  enum Status {
+    VALID = 0;
+    REVOKED = 1;
+  }
+  optional bytes drm_serial_number = 1;
+  optional .video_widevine.DeviceCertificateStatus.Status status = 2 [default = VALID];
+  optional .video_widevine.ProvisionedDeviceInfo device_info = 4;
+  optional bytes oem_serial_number = 5;
+}
+
+message DeviceCertificateStatusList {
+  optional uint32 creation_time_seconds = 1;
+  repeated .video_widevine.DeviceCertificateStatus certificate_status = 2;
+}
+
+message SignedCertificateStatusList {
+  optional bytes certificate_status_list = 1;
+  optional bytes signature = 2;
+}
+
+message ProvisionedDeviceInfo {
+  enum WvSecurityLevel {
+    LEVEL_UNSPECIFIED = 0;
+    LEVEL_1 = 1;
+    LEVEL_2 = 2;
+    LEVEL_3 = 3;
+  }
+  optional uint32 system_id = 1;
+  optional string soc = 2;
+  optional string manufacturer = 3;
+  optional string model = 4;
+  optional string device_type = 5;
+  optional uint32 model_year = 6;
+  optional .video_widevine.ProvisionedDeviceInfo.WvSecurityLevel security_level = 7 [default = LEVEL_UNSPECIFIED];
+  optional bool test_device = 8 [default = false];
+}
+
+message SubLicense {
+  optional string sub_session_key_id = 1;
+  optional bytes key_msg = 2;
+}
+
+message WidevinePsshData {
+  enum Algorithm {
+    UNENCRYPTED = 0;
+    AESCTR = 1;
+  }
+  optional .video_widevine.WidevinePsshData.Algorithm algorithm = 1;
+  repeated bytes key_id = 2;
+  optional string provider = 3;
+  optional bytes content_id = 4;
+  optional string track_type_deprecated = 5;
+  optional string policy = 6 [deprecated = true];
+  optional uint32 crypto_period_index = 7;
+  optional bytes grouped_license = 8;
+  optional uint32 protection_scheme = 9;
+  optional uint32 crypto_period_seconds = 10;
+  repeated .video_widevine.SubLicense sub_licenses = 11;
+  optional string group_master_key_id = 12;
+}
+
+message SignedDrmDeviceCertificate {
+  optional bytes drm_certificate = 1;
+  optional bytes signature = 2;
+  optional .video_widevine.SignedDrmDeviceCertificate signer = 3;
+}

@@ -1,0 +1,36 @@
+https://www.primevideo.com/region/eu/storefront
+
+poetry run vt dl -al en -sl en -r HDR --list AMZN 0H7LY5ZKKBM1MIW0244WE9O2C4
+poetry run vt dl -al en -sl en --list AMZN 0H7LY5ZKKBM1MIW0244WE9O2C4
+poetry run vt dl -al en --selected --keys AMZN 0H7LY5ZKKBM1MIW0244WE9O2C4
+poetry run vt dl -al en --selected AMZN 0H7LY5ZKKBM1MIW0244WE9O2C4
+
+poetry run vt dl -q 2160 -al en -sl en --list AMZN 0H7LY5ZKKBM1MIW0244WE9O2C4
+poetry run vt dl -q 2160 -al en -sl en --keys AMZN 0H7LY5ZKKBM1MIW0244WE9O2C4 --bitrate CVBR+CBR
+poetry run vt dl -al en -sl en --selected AMZN -b CBR https://www.primevideo.com/detail/0I1GTXP9ZKTV7AAD7E1LCWJCUX/
+
+poetry run vt dl -al en -sl en -q 2160 --keys -r HDR AMZN -b CBR 0OSAJR8S2YWRSQCYS4J8MEGEXI
+poetry run vt dl -al en -sl en -q 2160 -r HDR --selected -w S05E08-S05E24 AMZN -b CBR 0IQZZIJ6W6TT2CXPT6ZOZYX396
+
+python vinetrimmer1.py dl -al en -sl en -q 2160 -r HDR --selected -w S05E09-S05E24 AMZN -b CBR 0IQZZIJ6W6TT2CXPT6ZOZYX396
+poetry run vt dl -al en -sl en --selected -q 2160 -r HDR -w S01E18-S01E25 AMZN -b CBR --ism 0IQZZIJ6W6TT2CXPT6ZOZYX396
+
+Atmos audio download AMZN to fix --> poetry run vt dl -al en -aa -sl en --selected --debug -w S01E01 -A AMZN -b CBR --ism 0HAQAA7JM43QWX0H6GUD3IOF70
+
+http://ABHIRCQAAAAAAAAMCX3W7WLVKL54A.s3-bom-ww.cf.smooth.row.aiv-cdn.net/e5b0/2fe1/032c/4fae-b896-aca9d8bef3d4/170b36b1-856d-4c69-bbf6-feb6c979185a.ism/manifest
+poetry run vt dl -al en -sl en -r HDR -w S01E01 --list -q 2160 AMZN https://www.primevideo.com/detail/0HU52DR3U1R0FGI3KSUL00XYY7
+https://www.primevideo.com/detail/0HU52DR3U1R0FGI3KSUL00XYY7/
+https://ABAKS6NAAAAAAAAMBIBDKKUP3ONNU.s3-iad-2.cf.smooth.row.aiv-cdn.net/357a/1bb0/c1f3/4a6b-b709-d6f2edf5b709/15eab8ec-d8ac-4c23-96fc-f5d89f459829.ism/manifest
+http://ABHIRCQAAAAAAAAMHLTVNGLHRCITQ.s3-bom-ww.cf.smooth.row.aiv-cdn.net/e7ab/7c49/9743/4e53-ab5c-6d15516ecf15/52bf7e61-51cd-4e5d-bd68-834706f17789.ism/manifest
+https://www.primevideo.com/region/eu/detail/0KYRVT4JDB957NXZO72E2MIFW5/
+https://m-5884s3.ll.smooth.row.aiv-cdn.net/iad_2/3572/bbdc/73b4/404d-a100-802b1d9de4c6/862e2506-c20e-4ba7-bacc-d6b4775e7b62.ism/manifest
+
+poetry run vt dl -al en -sl en -w S01E01 Max https://play.max.com/show/c8ea8e19-cae7-4683-9b62-cdbbed744784
+UHD
+poetry run vt dl -al en -sl en --keys Max https://play.max.com/show/5756c2bf-36f8-4890-b1f9-ef168f1d8e9c
+poetry run vt dl -al en -sl en -w S02E05-S02E10 --selected --proxy http://192.168.0.99:9766 Max
+poetry run vt dl -al en -sl en --list -w S01E01 --proxy http://192.168.0.99:9766 Max
+
+poetry run vt dl -al all --selected --proxy http://192.168.0.99:9766 --debug -w S01E01 ATVP umc.cmc.7gvn6fekgfpq5fc72pgi1c47o
+poetry run vt dl -al en -sl en --selected --debug -q 720 --proxy http://192.168.0.99:9766 -w S01E01 ATVP umc.cmc.1nfdfd5zlk05fo1bwwetzldy3
+poetry run vt dl -al en -sl en --selected --proxy http://192.168.0.99:9766 -w S01E01 ATVP umc.cmc.1nfdfd5zlk05fo1bwwetzldy3

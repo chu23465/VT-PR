@@ -1,0 +1,118 @@
+certificate: |
+  CAUSwgUKvAIIAxIQCuQRtZRasVgFt7DIvVtVHBi17OSpBSKOAjCCAQoCggEBAKU2UrYVOSDlcXajWhpEgGhqGraJtFdUPgu6plJGy9ViaRn5mhyXON5PXm
+  w1krQdi0SLxf00FfIgnYFLpDfvNeItGn9rcx0RNPwP39PW7aW0Fbqi6VCaKWlR24kRpd7NQ4woyMXr7xlBWPwPNxK4xmR/6UuvKyYWEkroyeIjWHAqgCjC
+  mpfIpVcPsyrnMuPFGl82MMVnAhTweTKnEPOqJpxQ1bdQvVNCvkba5gjOTbEnJ7aXegwhmCdRQzXjTeEV2dO8oo5YfxW6pRBovzF6wYBMQYpSCJIA24ptAP
+  /2TkneyJuqm4hJNFvtF8fsBgTQQ4TIhnX4bZ9imuhivYLa6HsCAwEAAToPYW1hem9uLmNvbS1wcm9kEoADETQD6R0H/h9fyg0Hw7mj0M7T4s0bcBf4fMhA
+  Rpwk2X4HpvB49bJ5Yvc4t41mAnXGe/wiXbzsddKMiMffkSE1QWK1CFPBgziU23y1PjQToGiIv/sJIFRKRJ4qMBxIl95xlvSEzKdt68n7wqGa442+uAgk7C
+  XU3uTfVofYY76CrPBnEKQfad/CVqTh48geNTb4qRH1TX30NzCsB9NWlcdvg10pCnWSm8cSHu1d9yH+2yQgsGe52QoHHCqHNzG/wAxMYWTevXQW7EPTBeFy
+  SPY0xUN+2F2FhCf5/A7uFUHywd0zNTswh0QJc93LBTh46clRLO+d4RKBiBSj3rah6Y5iXMw9N9o58tCRc9gFHrjfMNubopWHjDOO3ATUgqXrTp+fKVCmsG
+  uGl1ComHxXV9i1AqHwzzY2JY2vFqo73jR3IElr6oChPIwcNokmNc0D4TXtjE0BoYkbWKJfHvJJihzMOvDicWUsemVHvua9/FBtpbHgpbgwijFPjtQF9Ldb
+  8Swf
+
+# device:
+#   new:
+#     domain: Device
+#     app_name: 'com.amazon.amazonvideo.livingroom'  # AIV, com.amazon.amazonvideo.livingroom
+#     app_version: '1.1'  # AIV: 3.12.0, livingroom: 1.1
+#     device_model: 'Nexus Player'  # SHIELD Android TV, Nexus Player
+#     os_version: '8.0.0'  # 25, 8.0.0
+#     device_type: 'A2SNKIF736WF4T'
+#     device_name: '%FIRST_NAME%''s%DUPE_STRATEGY_1ST% Nexus Player'
+#     device_serial: 'a906a7f9bfd6a7ab' # f8eb5625fd608718
+
+#below gets ism manifest
+device:
+  default:  # !<< take note that this is done per-profile
+    domain: Device
+    app_name: AIV
+    app_version: '3.12.0'
+    device_model: 'SHIELD Android TV'
+    os_version: '28'
+    device_type: A1KAXIG6VXSG8Y
+    device_serial: '13f5b56b4a17de5d136f0e4c28236109'  # `os.urandom(8).hex()`
+    device_name: "%FIRST_NAME%'s%DUPE_STRATEGY_1ST% Shield TV"
+    software_version: '248'
+
+
+
+device_types:
+  browser: 'AOAGZA014O5RE'  # all browsers? all platforms?
+  tv_generic: 'A2SNKIF736WF4T'  # type is shared among various random smart tvs
+  pc_app: 'A1RTAM01W29CUP'
+  mobile_app: 'A43PXU4ZN2AL1'
+  echo: 'A7WXQPH584YP'  # echo Gen2
+  echo_dot: 'A32DOYMUN6DTXA'  # echo dot Gen3
+  echo_studio: 'A3RBAYBE7VM004'  # for audio stuff, this is probably the one to use
+  fire_7: 'A2M4YX06LWP8WI'
+  fire_7_again: 'A1Q7QCGNMXAKYW'  # not sure the difference
+  fire_hd_8: 'A1C66CX2XD756O'
+  fire_hd_8_again: 'A38EHHIB10L47V'  # not sure the difference
+  fire_hd_8_plus_2020: 'AVU7CPPF2ZRAS'
+  fire_hd_10: 'A1ZB65LA390I4K'
+  fire_tv: 'A2E0SNTXJVT7WK'  # this is not the stick, this is the older stick-like diamond shaped one
+  fire_tv_gen2: 'A12GXV8XMS007S'
+  fire_tv_cube: 'A2JKHJ0PX4J3L3'  # this is the STB-style big bulky cube
+  fire_tv_stick_gen1: 'ADVBD696BHNV5'  # non-4k fire tv stick
+  fire_tv_stick_gen2: 'A2LWARUGJLBYEW'
+  fire_tv_stick_with_alexa: 'A265XOI9586NML'
+  fire_tv_stick_4k: 'A2GFL5ZMWNE0PX'  # 4k fire tv stick
+  fire_tv_stick_4k_gen3: 'AKPGW064GI9HE'
+  nvidia_shield: 'A1KAXIG6VXSG8Y'  # nvidia shield, unknown which one or if all
+
+endpoints:
+  browse: '/cdp/catalog/Browse'
+  details: '/gp/video/api/getDetailPage'
+  getDetailWidgets: '/gp/video/api/getDetailWidgets'
+  playback: '/cdp/catalog/GetPlaybackResources'
+  licence: '/cdp/catalog/GetPlaybackResources'
+  # chapters/scenes
+  xray: '/swift/page/xray'
+  # device registration
+  ontv: '/gp/video/ontv/code'
+  devicelink: '/gp/video/api/codeBasedLinking'
+  codepair: '/auth/create/codepair'
+  register: '/auth/register'
+  token: '/auth/token'
+
+regions:
+  us:
+    base: 'www.amazon.com'
+    base_api: 'api.amazon.com'
+    base_manifest: 'atv-ps.amazon.com'
+    marketplace_id: 'ATVPDKIKX0DER'
+
+  gb:
+    base: 'www.amazon.co.uk'
+    base_api: 'api.amazon.co.uk'
+    base_manifest: 'atv-ps-eu.amazon.co.uk'
+    marketplace_id: 'A2IR4J4NTCP2M5'  # A1F83G8C2ARO7P is also another marketplace_id
+
+  it:
+    base: 'www.amazon.it'
+    base_api: 'api.amazon.it'
+    base_manifest: 'atv-ps-eu.primevideo.com'
+    marketplace_id: 'A3K6Y4MI8GDYMT'
+
+  de:
+    base: 'www.amazon.de'
+    base_api: 'api.amazon.de'
+    base_manifest: 'atv-ps-eu.amazon.de'
+    marketplace_id: 'A1PA6795UKMFR9'
+
+  au:
+    base: 'www.amazon.com.au'
+    base_api: 'api.amazon.com.au'
+    base_manifest: 'atv-ps-fe.amazon.com.au'
+    marketplace_id: 'A3K6Y4MI8GDYMT'
+
+  jp:
+    base: 'www.amazon.co.jp'
+    base_api: 'api.amazon.co.jp'
+    base_manifest: 'atv-ps-fe.amazon.co.jp'
+    marketplace_id: 'A1VC38T7YXB528'
+
+  pl:
+    base: 'www.amazon.com'
+    base_api: 'api.amazon.com'
+    base_manifest: 'atv-ps-eu.primevideo.com'
+    marketplace_id: 'A3K6Y4MI8GDYMT'

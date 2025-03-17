@@ -1,0 +1,1 @@
+ffmpeg -i correct_file.eac3 -map 0 -c:a copy correct_file.mp4

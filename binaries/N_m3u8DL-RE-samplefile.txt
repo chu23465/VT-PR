@@ -1,0 +1,1 @@
+N_m3u8DL-RE.exe http://avodsls3ww-s.akamaihd.net/ondemand/iad_2/c5a2/7992/6e31/4ed5-8011-893c8d4e98a6/0bc9f599-85c7-450d-b829-b69fb27d4bd6.ism/manifest --thread-count 96 --log-level ERROR --write-meta-json False --http-request-timeout 8

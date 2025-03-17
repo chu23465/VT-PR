@@ -1,0 +1,24 @@
+user_agent: 'ATVE/1.1 FireOS/6.2.6.8 build/4A93 maker/Amazon model/FireTVStick4K FW/NS6268/2315'  # AppleTV6,2/11.1 | ATVE/1.1 FireOS/6.2.6.8 build/4A93 maker/Amazon model/FireTVStick4K FW/NS6268/2315
+
+endpoints:
+  title: 'https://tv.apple.com/api/uts/v3/{type}/{id}'
+  tv_episodes: 'https://tv.apple.com/api/uts/v2/view/show/{id}/episodes'
+  manifest: 'https://tv.apple.com/api/uts/v2/view/product/{id}/personalized'
+  license:  'https://play.itunes.apple.com/WebObjects/MZPlay.woa/wa/fpsRequest'  # 'https://play.itunes.apple.com/WebObjects/MZPlay.woa/web/video/subscription/license'
+
+device:
+  # I have no idea what these values are or what they represent.
+  # These might not even be device related.
+  utsk: '6e3013c6d6fae3c2::::::e08f7cfb96228836' # 6e3013c6d6fae3c2::::::e08f7cfb96228836 6e3013c6d6fae3c2::::::e08f7cfb96228836 (?),  6e3013c6d6fae3c2::::::235656c069bb0efb (web)
+  caller: 'web' # ?, vz, web
+  sf: '143441'  # "storefront", country | 143441: US, 143444: GB | 143443: DE For other countrys ->https://gist.github.com/BrychanOdlum/2208578ba151d1d7c4edeeda15b4e9b1
+  v: '46'  # "version" | latest: 56
+  pfm: 'appletv'  # "platform" | appletv, vz, web
+  mfr: 'Apple'  # "manufacturer" | Apple, Amazon
+  locale: 'en-US'
+  l: 'en'
+  brandId: 'tvs.sbd.4000' # ctx_brand/brandId
+  count: '100'
+  skip: '0'
+  svcId: 'tvs.vds.4105'
+  a: '1783518684'
