@@ -1,6 +1,8 @@
 from langcodes import Language, closest_match
 
 from vinetrimmer.constants import LANGUAGE_MAX_DISTANCE
+from vinetrimmer.utils.widevine.cdm import Cdm  # noqa: F401
+from vinetrimmer.utils.widevine.protos.widevine_pb2 import WidevineCencHeader  # noqa: F401
 from vinetrimmer.vendor.pymp4.parser import Box
 
 

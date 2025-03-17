@@ -15,7 +15,7 @@ beautifulsoup4 = "~4.8.2"
 click = "^8.0.1"
 cffi = "^1.16.0"
 coloredlogs = "^15.0"
-construct = "2.8.8"
+construct = "2.10.70"
 crccheck = "^1.0"
 cryptography = "^43.0.3"
 ecpy = "^1.2.5"
@@ -26,28 +26,23 @@ langcodes = { extras = ["data"], version = "^3.1.0" }
 lxml = "^4.6.3"
 m3u8 = "^0.9.0"
 marisa-trie = "^1.1.0"
-poetry = "1.8.5"
 pproxy = "^2.7.7"
-protobuf3 = { path = "./scripts/protobuf3", develop = true }
+protobuf = "^3.13.0"
 pycaption = "^2.1.1"
 pycryptodome = "^3.21.0"
 pycryptodomex = "^3.4.3"
 pyhulu = "^1.1.2"
 pymediainfo = "^5.0.3"
 PyMySQL = { extras = ["rsa"], version = "^1.0.2" }
-pymp4 = "^1.4.0"
-pyplayready = { path = "./scripts/pyplayready", develop = true }
-pywidevine = { path = "./scripts/pywidevine", develop = true }
 pysubs2 = "^1.6.1"
 PyYAML = "^6.0.1"
-requests = { extras = ["socks"], version = "2.32.3" }
+requests = { extras = ["socks"], version = "2.29.0" }
 tldextract = "^3.1.0"
 toml = "^0.10.2"
-tqdm = "^4.67.0"
 Unidecode = "^1.2.0"
 validators = "^0.18.2"
 websocket-client = "^1.1.0"
-xmltodict = "^0.14.0"
+xmltodict = "^0.13.0"
 yt-dlp = "^2022.11.11"
 
 [tool.poetry.dev-dependencies]

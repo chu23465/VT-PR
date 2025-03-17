@@ -16,8 +16,10 @@ from langcodes.tag_parser import LanguageTagError
 
 from vinetrimmer import config
 from vinetrimmer.objects import AudioTrack, TextTrack, Track, Tracks, VideoTrack
+from vinetrimmer.utils import Cdm
 from vinetrimmer.utils.io import aria2c
 from vinetrimmer.utils.xml import load_xml
+from vinetrimmer.vendor.pymp4.parser import Box
 
 
 def parse(*, url=None, data=None, source, session=None, downloader=None):
@@ -44,19 +46,17 @@ def parse(*, url=None, data=None, source, session=None, downloader=None):
         tracks = Tracks.from_mpd(
             url,
             session=session,
-            source="DOLBY"
+            source="DOLBY",
         )
 
         url = "http://media.developer.dolby.com/DolbyVision_Atmos/profile8.1_DASH/p8.1.mpd"
         session = requests.Session(headers={"X-Example": "foo"})
         tracks = Tracks.from_mpd(url=url, data=session.get(url).text, source="DOLBY")
     """
-
     tracks = []
     if not data:
         if not url:
             raise ValueError("Neither a URL nor a document was provided to Tracks.from_mpd")
-        global base_url
         base_url = url.rsplit('/', 1)[0] + '/'
         if downloader is None:
             data = (session or requests).get(url).text
@@ -91,7 +91,7 @@ def parse(*, url=None, data=None, source, session=None, downloader=None):
             if any(x.get("schemeIdUri") == "http://dashif.org/guidelines/trickmode"
                    for x in adaptation_set.findall("EssentialProperty")
                    + adaptation_set.findall("SupplementalProperty")):
-                # Skip trick mode streams (used for fast-forward/rewind)
+                # Skip trick mode streams (used for fast forward/rewind)
                 continue
 
             for rep in adaptation_set.findall("Representation"):
@@ -194,13 +194,13 @@ def parse(*, url=None, data=None, source, session=None, downloader=None):
 
                     track_url = []
 
-                    def replace_fields(link, **kwargs):
+                    def replace_fields(url, **kwargs):
                         for field, value in kwargs.items():
-                            link = link.replace(f"${field}$", str(value))
-                            m = re.search(fr"\${re.escape(field)}%([a-z0-9]+)\$", link, flags=re.I)
+                            url = url.replace(f"${field}$", str(value))
+                            m = re.search(fr"\${re.escape(field)}%([a-z0-9]+)\$", url, flags=re.I)
                             if m:
-                                link = link.replace(m.group(), f"{value:{m.group(1)}}")
-                        return link
+                                url = url.replace(m.group(), f"{value:{m.group(1)}}")
+                        return url
 
                     initialization = segment_template.get("initialization")
                     if initialization:
@@ -335,7 +335,7 @@ def parse(*, url=None, data=None, source, session=None, downloader=None):
                             sub_path_url = segment_template.get('media')
                        
                         try:
-                            path = re.search(r"(t\/.+?\/)t", sub_path_url).group(1)
+                            path = re.search(r'(t\/.+?\/)t', sub_path_url).group(1)
                         except AttributeError:
                             path = 't/sub/'
                         

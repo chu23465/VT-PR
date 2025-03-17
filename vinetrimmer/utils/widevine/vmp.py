@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 try:
     # this was tested to work with protobuf 3, but it's an internal API (any varint decoder might work)
-    from protobuf3.internal.decoder import _DecodeVarint as _di
+    from google.protobuf.internal.decoder import _DecodeVarint as _di
 except ImportError:
     # this is generic and does not depend on pb internals,
     # however it will decode "larger" possible numbers than pb decoder which has them fixed

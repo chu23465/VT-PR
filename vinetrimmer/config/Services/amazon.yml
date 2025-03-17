@@ -10,57 +10,25 @@ certificate: |
   8Swf
 
 device:
-  
-  old:  # !<< take note that this is done per-profile
+  new:  # !<< take note that this is done per-profile
     domain: Device
     app_name: AIV
     app_version: '3.12.0'
-    device_model: 'SHIELD Android TV'
+    device_model: 'SHIELD Android TV' # gets ISM
     os_version: '28'
     device_type: A1KAXIG6VXSG8Y
-    device_serial: '13f5b56b4a17de5d136f0e4c28236109'  # os.urandom().hex()
-    device_name: "Build/LMY47D Shield TV"
+    device_serial: '13f5b56b4a17de5d136f0e4c28236109'  # `os.urandom(8).hex()`
+    device_name: "%FIRST_NAME%'s%DUPE_STRATEGY_1ST% Shield TV"
     software_version: '248'
-
-  old2:
-    'domain': 'DeviceLegacy'
-    'device_type': A1KAXIG6VXSG8Y,
-    'device_serial': '870f53d1b509594c2f8cd5e340a7d374'
-    'app_name': 'com.amazon.avod.thirdpartyclient'
-    'app_version': '296016847'
-    'device_model': 'mdarcy/nvidia/SHIELD Android TV'
-    'os_version': 'NVIDIA/mdarcy/mdarcy:11/RQ1A.210105.003/7094531_2971.7725:user/release-keys'
-  
-  old3:
-    domain: Device
-    app_name: com.amazon.amazonvideo.livingroom
-    app_version: '1.4'
-    device_model: PadFone
-    os_version: '6.2.5'
-    device_type: 'A2SNKIF736WF4T'
-    device_name: 'T008 Build/JSS15Q PadFone' # "%FIRST_NAME%'s%DUPE_STRATEGY_1ST% PadFone"
-    device_serial: 'c1ebbb433da4afdf'
-  
-  old4:
-    domain: Device
-    app_name: com.amazon.amazonvideo.livingroom
-    app_version: '1.4'
-    device_model: 'Hisense TV'
-    os_version: '3.9.5'
-    device_type: 'A3T3XXY42KZQNP' # A2B5DGIWVDH8J3, A3GTP8TAF8V3YG, AFTHA001 # https://developer.amazon.com/docs/fire-tv/identify-amazon-fire-tv-devices.html, https://github.com/giofrida/Hisense-Amazon-Enabler
-    device_name: "%FIRST_NAME%'s%DUPE_STRATEGY_1ST% Hisense" # KS964, Build/RP1A.201005.001
-    device_serial: '8e3ddf49ee384247'
-
   default:
     domain: Device
     app_name: com.amazon.amazonvideo.livingroom
     app_version: '1.1'
-    device_model: Hisense
-    os_version: '6.0.1' #6.10.19
-    device_type: 'A3REWRVYBYPKUM'
-    device_name: '%FIRST_NAME%''s%DUPE_STRATEGY_1ST% Hisense'
-    device_serial: '3cc61028646759e273'
-
+    device_model: PadFone
+    os_version: '6.0.1'
+    device_type: 'A2SNKIF736WF4T'
+    device_name: '%FIRST_NAME%''s%DUPE_STRATEGY_1ST% PadFone'
+    device_serial: 'a83a92c9b6cb4ca0'
 
 device_types:
   browser: 'AOAGZA014O5RE'  # all browsers? all platforms?
@@ -100,7 +68,6 @@ endpoints:
   codepair: '/auth/create/codepair'
   register: '/auth/register'
   token: '/auth/token'
-  #cookies: '/ap/exchangetoken/cookies'
 
 regions:
   us:

@@ -4,11 +4,11 @@
 import sys
 
 _b=sys.version_info[0]<3 and (lambda x:x) or (lambda x:x.encode('latin1'))
-from protobuf3 import descriptor as _descriptor
-from protobuf3 import message
-from protobuf3 import reflection as _reflection
-from protobuf3 import symbol_database as _symbol_database
-from protobuf3.internal import enum_type_wrapper
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from google.protobuf import reflection as _reflection
+from google.protobuf import symbol_database as _symbol_database
+from google.protobuf.internal import enum_type_wrapper
 
 # @@protoc_insertion_point(imports)
 
@@ -522,7 +522,7 @@ _PROVISIONINGOPTIONS_CERTIFICATETYPE = _descriptor.EnumDescriptor(
 )
 _sym_db.RegisterEnumDescriptor(_PROVISIONINGOPTIONS_CERTIFICATETYPE)
 
-_SIGNEDMESSAGEmessageTYPE = _descriptor.EnumDescriptor(
+_SIGNEDMESSAGE_MESSAGETYPE = _descriptor.EnumDescriptor(
   name='MessageType',
   full_name='SignedMessage.MessageType',
   filename=None,
@@ -554,7 +554,7 @@ _SIGNEDMESSAGEmessageTYPE = _descriptor.EnumDescriptor(
   serialized_start=8206,
   serialized_end=8331,
 )
-_sym_db.RegisterEnumDescriptor(_SIGNEDMESSAGEmessageTYPE)
+_sym_db.RegisterEnumDescriptor(_SIGNEDMESSAGE_MESSAGETYPE)
 
 _WIDEVINECENCHEADER_ALGORITHM = _descriptor.EnumDescriptor(
   name='Algorithm',
@@ -578,7 +578,7 @@ _WIDEVINECENCHEADER_ALGORITHM = _descriptor.EnumDescriptor(
 )
 _sym_db.RegisterEnumDescriptor(_WIDEVINECENCHEADER_ALGORITHM)
 
-_SIGNEDLICENSEREQUESTmessageTYPE = _descriptor.EnumDescriptor(
+_SIGNEDLICENSEREQUEST_MESSAGETYPE = _descriptor.EnumDescriptor(
   name='MessageType',
   full_name='SignedLicenseRequest.MessageType',
   filename=None,
@@ -610,9 +610,9 @@ _SIGNEDLICENSEREQUESTmessageTYPE = _descriptor.EnumDescriptor(
   serialized_start=8206,
   serialized_end=8331,
 )
-_sym_db.RegisterEnumDescriptor(_SIGNEDLICENSEREQUESTmessageTYPE)
+_sym_db.RegisterEnumDescriptor(_SIGNEDLICENSEREQUEST_MESSAGETYPE)
 
-_SIGNEDLICENSEREQUESTRAWmessageTYPE = _descriptor.EnumDescriptor(
+_SIGNEDLICENSEREQUESTRAW_MESSAGETYPE = _descriptor.EnumDescriptor(
   name='MessageType',
   full_name='SignedLicenseRequestRaw.MessageType',
   filename=None,
@@ -644,9 +644,9 @@ _SIGNEDLICENSEREQUESTRAWmessageTYPE = _descriptor.EnumDescriptor(
   serialized_start=8206,
   serialized_end=8331,
 )
-_sym_db.RegisterEnumDescriptor(_SIGNEDLICENSEREQUESTRAWmessageTYPE)
+_sym_db.RegisterEnumDescriptor(_SIGNEDLICENSEREQUESTRAW_MESSAGETYPE)
 
-_SIGNEDLICENSEmessageTYPE = _descriptor.EnumDescriptor(
+_SIGNEDLICENSE_MESSAGETYPE = _descriptor.EnumDescriptor(
   name='MessageType',
   full_name='SignedLicense.MessageType',
   filename=None,
@@ -678,9 +678,9 @@ _SIGNEDLICENSEmessageTYPE = _descriptor.EnumDescriptor(
   serialized_start=8206,
   serialized_end=8331,
 )
-_sym_db.RegisterEnumDescriptor(_SIGNEDLICENSEmessageTYPE)
+_sym_db.RegisterEnumDescriptor(_SIGNEDLICENSE_MESSAGETYPE)
 
-_SIGNEDSERVICECERTIFICATEmessageTYPE = _descriptor.EnumDescriptor(
+_SIGNEDSERVICECERTIFICATE_MESSAGETYPE = _descriptor.EnumDescriptor(
   name='MessageType',
   full_name='SignedServiceCertificate.MessageType',
   filename=None,
@@ -712,7 +712,7 @@ _SIGNEDSERVICECERTIFICATEmessageTYPE = _descriptor.EnumDescriptor(
   serialized_start=8206,
   serialized_end=8331,
 )
-_sym_db.RegisterEnumDescriptor(_SIGNEDSERVICECERTIFICATEmessageTYPE)
+_sym_db.RegisterEnumDescriptor(_SIGNEDSERVICECERTIFICATE_MESSAGETYPE)
 
 
 _CLIENTIDENTIFICATION_NAMEVALUE = _descriptor.Descriptor(
@@ -2900,7 +2900,7 @@ _SIGNEDMESSAGE = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
-    _SIGNEDMESSAGEmessageTYPE,
+    _SIGNEDMESSAGE_MESSAGETYPE,
   ],
   serialized_options=None,
   is_extendable=False,
@@ -3055,7 +3055,7 @@ _SIGNEDLICENSEREQUEST = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
-    _SIGNEDLICENSEREQUESTmessageTYPE,
+    _SIGNEDLICENSEREQUEST_MESSAGETYPE,
   ],
   serialized_options=None,
   is_extendable=False,
@@ -3115,7 +3115,7 @@ _SIGNEDLICENSEREQUESTRAW = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
-    _SIGNEDLICENSEREQUESTRAWmessageTYPE,
+    _SIGNEDLICENSEREQUESTRAW_MESSAGETYPE,
   ],
   serialized_options=None,
   is_extendable=False,
@@ -3175,7 +3175,7 @@ _SIGNEDLICENSE = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
-    _SIGNEDLICENSEmessageTYPE,
+    _SIGNEDLICENSE_MESSAGETYPE,
   ],
   serialized_options=None,
   is_extendable=False,
@@ -3235,7 +3235,7 @@ _SIGNEDSERVICECERTIFICATE = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
-    _SIGNEDSERVICECERTIFICATEmessageTYPE,
+    _SIGNEDSERVICECERTIFICATE_MESSAGETYPE,
   ],
   serialized_options=None,
   is_extendable=False,
@@ -3441,27 +3441,27 @@ _REMOTEATTESTATION.fields_by_name['Certificate'].message_type = _ENCRYPTEDCLIENT
 _SIGNEDDEVICECERTIFICATE.fields_by_name['_DeviceCertificate'].message_type = _DEVICECERTIFICATE
 _SIGNEDDEVICECERTIFICATE.fields_by_name['Signer'].message_type = _SIGNEDDEVICECERTIFICATE
 _SIGNEDPROVISIONINGMESSAGE.fields_by_name['protocol_version'].enum_type = _PROTOCOLVERSION
-_SIGNEDMESSAGE.fields_by_name['Type'].enum_type = _SIGNEDMESSAGEmessageTYPE
+_SIGNEDMESSAGE.fields_by_name['Type'].enum_type = _SIGNEDMESSAGE_MESSAGETYPE
 _SIGNEDMESSAGE.fields_by_name['RemoteAttestation'].message_type = _REMOTEATTESTATION
-_SIGNEDMESSAGEmessageTYPE.containing_type = _SIGNEDMESSAGE
+_SIGNEDMESSAGE_MESSAGETYPE.containing_type = _SIGNEDMESSAGE
 _WIDEVINECENCHEADER.fields_by_name['algorithm'].enum_type = _WIDEVINECENCHEADER_ALGORITHM
 _WIDEVINECENCHEADER_ALGORITHM.containing_type = _WIDEVINECENCHEADER
-_SIGNEDLICENSEREQUEST.fields_by_name['Type'].enum_type = _SIGNEDLICENSEREQUESTmessageTYPE
+_SIGNEDLICENSEREQUEST.fields_by_name['Type'].enum_type = _SIGNEDLICENSEREQUEST_MESSAGETYPE
 _SIGNEDLICENSEREQUEST.fields_by_name['Msg'].message_type = _LICENSEREQUEST
 _SIGNEDLICENSEREQUEST.fields_by_name['RemoteAttestation'].message_type = _REMOTEATTESTATION
-_SIGNEDLICENSEREQUESTmessageTYPE.containing_type = _SIGNEDLICENSEREQUEST
-_SIGNEDLICENSEREQUESTRAW.fields_by_name['Type'].enum_type = _SIGNEDLICENSEREQUESTRAWmessageTYPE
+_SIGNEDLICENSEREQUEST_MESSAGETYPE.containing_type = _SIGNEDLICENSEREQUEST
+_SIGNEDLICENSEREQUESTRAW.fields_by_name['Type'].enum_type = _SIGNEDLICENSEREQUESTRAW_MESSAGETYPE
 _SIGNEDLICENSEREQUESTRAW.fields_by_name['Msg'].message_type = _LICENSEREQUESTRAW
 _SIGNEDLICENSEREQUESTRAW.fields_by_name['RemoteAttestation'].message_type = _REMOTEATTESTATION
-_SIGNEDLICENSEREQUESTRAWmessageTYPE.containing_type = _SIGNEDLICENSEREQUESTRAW
-_SIGNEDLICENSE.fields_by_name['Type'].enum_type = _SIGNEDLICENSEmessageTYPE
+_SIGNEDLICENSEREQUESTRAW_MESSAGETYPE.containing_type = _SIGNEDLICENSEREQUESTRAW
+_SIGNEDLICENSE.fields_by_name['Type'].enum_type = _SIGNEDLICENSE_MESSAGETYPE
 _SIGNEDLICENSE.fields_by_name['Msg'].message_type = _LICENSE
 _SIGNEDLICENSE.fields_by_name['RemoteAttestation'].message_type = _REMOTEATTESTATION
-_SIGNEDLICENSEmessageTYPE.containing_type = _SIGNEDLICENSE
-_SIGNEDSERVICECERTIFICATE.fields_by_name['Type'].enum_type = _SIGNEDSERVICECERTIFICATEmessageTYPE
+_SIGNEDLICENSE_MESSAGETYPE.containing_type = _SIGNEDLICENSE
+_SIGNEDSERVICECERTIFICATE.fields_by_name['Type'].enum_type = _SIGNEDSERVICECERTIFICATE_MESSAGETYPE
 _SIGNEDSERVICECERTIFICATE.fields_by_name['Msg'].message_type = _SIGNEDDEVICECERTIFICATE
 _SIGNEDSERVICECERTIFICATE.fields_by_name['RemoteAttestation'].message_type = _REMOTEATTESTATION
-_SIGNEDSERVICECERTIFICATEmessageTYPE.containing_type = _SIGNEDSERVICECERTIFICATE
+_SIGNEDSERVICECERTIFICATE_MESSAGETYPE.containing_type = _SIGNEDSERVICECERTIFICATE
 _FILEHASHES_SIGNATURE.containing_type = _FILEHASHES
 _FILEHASHES.fields_by_name['signatures'].message_type = _FILEHASHES_SIGNATURE
 DESCRIPTOR.message_types_by_name['ClientIdentification'] = _CLIENTIDENTIFICATION
@@ -3496,16 +3496,16 @@ DESCRIPTOR.enum_types_by_name['LicenseType'] = _LICENSETYPE
 DESCRIPTOR.enum_types_by_name['ProtocolVersion'] = _PROTOCOLVERSION
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-ClientIdentification = _reflection.GeneratedProtocolMessageType('ClientIdentification', (message.Message,), dict(
+ClientIdentification = _reflection.GeneratedProtocolMessageType('ClientIdentification', (_message.Message,), dict(
 
-  NameValue = _reflection.GeneratedProtocolMessageType('NameValue', (message.Message,), dict(
+  NameValue = _reflection.GeneratedProtocolMessageType('NameValue', (_message.Message,), dict(
     DESCRIPTOR = _CLIENTIDENTIFICATION_NAMEVALUE,
     __module__ = 'widevine'
     # @@protoc_insertion_point(class_scope:ClientIdentification.NameValue)
     ))
   ,
 
-  ClientCapabilities = _reflection.GeneratedProtocolMessageType('ClientCapabilities', (message.Message,), dict(
+  ClientCapabilities = _reflection.GeneratedProtocolMessageType('ClientCapabilities', (_message.Message,), dict(
     DESCRIPTOR = _CLIENTIDENTIFICATION_CLIENTCAPABILITIES,
     __module__ = 'widevine'
     # @@protoc_insertion_point(class_scope:ClientIdentification.ClientCapabilities)
@@ -3519,16 +3519,16 @@ _sym_db.RegisterMessage(ClientIdentification)
 _sym_db.RegisterMessage(ClientIdentification.NameValue)
 _sym_db.RegisterMessage(ClientIdentification.ClientCapabilities)
 
-ClientIdentificationRaw = _reflection.GeneratedProtocolMessageType('ClientIdentificationRaw', (message.Message,), dict(
+ClientIdentificationRaw = _reflection.GeneratedProtocolMessageType('ClientIdentificationRaw', (_message.Message,), dict(
 
-  NameValue = _reflection.GeneratedProtocolMessageType('NameValue', (message.Message,), dict(
+  NameValue = _reflection.GeneratedProtocolMessageType('NameValue', (_message.Message,), dict(
     DESCRIPTOR = _CLIENTIDENTIFICATIONRAW_NAMEVALUE,
     __module__ = 'widevine'
     # @@protoc_insertion_point(class_scope:ClientIdentificationRaw.NameValue)
     ))
   ,
 
-  ClientCapabilities = _reflection.GeneratedProtocolMessageType('ClientCapabilities', (message.Message,), dict(
+  ClientCapabilities = _reflection.GeneratedProtocolMessageType('ClientCapabilities', (_message.Message,), dict(
     DESCRIPTOR = _CLIENTIDENTIFICATIONRAW_CLIENTCAPABILITIES,
     __module__ = 'widevine'
     # @@protoc_insertion_point(class_scope:ClientIdentificationRaw.ClientCapabilities)
@@ -3542,74 +3542,74 @@ _sym_db.RegisterMessage(ClientIdentificationRaw)
 _sym_db.RegisterMessage(ClientIdentificationRaw.NameValue)
 _sym_db.RegisterMessage(ClientIdentificationRaw.ClientCapabilities)
 
-DeviceCertificate = _reflection.GeneratedProtocolMessageType('DeviceCertificate', (message.Message,), dict(
+DeviceCertificate = _reflection.GeneratedProtocolMessageType('DeviceCertificate', (_message.Message,), dict(
   DESCRIPTOR = _DEVICECERTIFICATE,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:DeviceCertificate)
   ))
 _sym_db.RegisterMessage(DeviceCertificate)
 
-DeviceCertificateStatus = _reflection.GeneratedProtocolMessageType('DeviceCertificateStatus', (message.Message,), dict(
+DeviceCertificateStatus = _reflection.GeneratedProtocolMessageType('DeviceCertificateStatus', (_message.Message,), dict(
   DESCRIPTOR = _DEVICECERTIFICATESTATUS,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:DeviceCertificateStatus)
   ))
 _sym_db.RegisterMessage(DeviceCertificateStatus)
 
-DeviceCertificateStatusList = _reflection.GeneratedProtocolMessageType('DeviceCertificateStatusList', (message.Message,), dict(
+DeviceCertificateStatusList = _reflection.GeneratedProtocolMessageType('DeviceCertificateStatusList', (_message.Message,), dict(
   DESCRIPTOR = _DEVICECERTIFICATESTATUSLIST,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:DeviceCertificateStatusList)
   ))
 _sym_db.RegisterMessage(DeviceCertificateStatusList)
 
-EncryptedClientIdentification = _reflection.GeneratedProtocolMessageType('EncryptedClientIdentification', (message.Message,), dict(
+EncryptedClientIdentification = _reflection.GeneratedProtocolMessageType('EncryptedClientIdentification', (_message.Message,), dict(
   DESCRIPTOR = _ENCRYPTEDCLIENTIDENTIFICATION,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:EncryptedClientIdentification)
   ))
 _sym_db.RegisterMessage(EncryptedClientIdentification)
 
-LicenseIdentification = _reflection.GeneratedProtocolMessageType('LicenseIdentification', (message.Message,), dict(
+LicenseIdentification = _reflection.GeneratedProtocolMessageType('LicenseIdentification', (_message.Message,), dict(
   DESCRIPTOR = _LICENSEIDENTIFICATION,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:LicenseIdentification)
   ))
 _sym_db.RegisterMessage(LicenseIdentification)
 
-License = _reflection.GeneratedProtocolMessageType('License', (message.Message,), dict(
+License = _reflection.GeneratedProtocolMessageType('License', (_message.Message,), dict(
 
-  Policy = _reflection.GeneratedProtocolMessageType('Policy', (message.Message,), dict(
+  Policy = _reflection.GeneratedProtocolMessageType('Policy', (_message.Message,), dict(
     DESCRIPTOR = _LICENSE_POLICY,
     __module__ = 'widevine'
     # @@protoc_insertion_point(class_scope:License.Policy)
     ))
   ,
 
-  KeyContainer = _reflection.GeneratedProtocolMessageType('KeyContainer', (message.Message,), dict(
+  KeyContainer = _reflection.GeneratedProtocolMessageType('KeyContainer', (_message.Message,), dict(
 
-    OutputProtection = _reflection.GeneratedProtocolMessageType('OutputProtection', (message.Message,), dict(
+    OutputProtection = _reflection.GeneratedProtocolMessageType('OutputProtection', (_message.Message,), dict(
       DESCRIPTOR = _LICENSE_KEYCONTAINER_OUTPUTPROTECTION,
       __module__ = 'widevine'
       # @@protoc_insertion_point(class_scope:License.KeyContainer.OutputProtection)
       ))
     ,
 
-    KeyControl = _reflection.GeneratedProtocolMessageType('KeyControl', (message.Message,), dict(
+    KeyControl = _reflection.GeneratedProtocolMessageType('KeyControl', (_message.Message,), dict(
       DESCRIPTOR = _LICENSE_KEYCONTAINER_KEYCONTROL,
       __module__ = 'widevine'
       # @@protoc_insertion_point(class_scope:License.KeyContainer.KeyControl)
       ))
     ,
 
-    OperatorSessionKeyPermissions = _reflection.GeneratedProtocolMessageType('OperatorSessionKeyPermissions', (message.Message,), dict(
+    OperatorSessionKeyPermissions = _reflection.GeneratedProtocolMessageType('OperatorSessionKeyPermissions', (_message.Message,), dict(
       DESCRIPTOR = _LICENSE_KEYCONTAINER_OPERATORSESSIONKEYPERMISSIONS,
       __module__ = 'widevine'
       # @@protoc_insertion_point(class_scope:License.KeyContainer.OperatorSessionKeyPermissions)
       ))
     ,
 
-    VideoResolutionConstraint = _reflection.GeneratedProtocolMessageType('VideoResolutionConstraint', (message.Message,), dict(
+    VideoResolutionConstraint = _reflection.GeneratedProtocolMessageType('VideoResolutionConstraint', (_message.Message,), dict(
       DESCRIPTOR = _LICENSE_KEYCONTAINER_VIDEORESOLUTIONCONSTRAINT,
       __module__ = 'widevine'
       # @@protoc_insertion_point(class_scope:License.KeyContainer.VideoResolutionConstraint)
@@ -3632,32 +3632,32 @@ _sym_db.RegisterMessage(License.KeyContainer.KeyControl)
 _sym_db.RegisterMessage(License.KeyContainer.OperatorSessionKeyPermissions)
 _sym_db.RegisterMessage(License.KeyContainer.VideoResolutionConstraint)
 
-LicenseError = _reflection.GeneratedProtocolMessageType('LicenseError', (message.Message,), dict(
+LicenseError = _reflection.GeneratedProtocolMessageType('LicenseError', (_message.Message,), dict(
   DESCRIPTOR = _LICENSEERROR,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:LicenseError)
   ))
 _sym_db.RegisterMessage(LicenseError)
 
-LicenseRequest = _reflection.GeneratedProtocolMessageType('LicenseRequest', (message.Message,), dict(
+LicenseRequest = _reflection.GeneratedProtocolMessageType('LicenseRequest', (_message.Message,), dict(
 
-  ContentIdentification = _reflection.GeneratedProtocolMessageType('ContentIdentification', (message.Message,), dict(
+  ContentIdentification = _reflection.GeneratedProtocolMessageType('ContentIdentification', (_message.Message,), dict(
 
-    CENC = _reflection.GeneratedProtocolMessageType('CENC', (message.Message,), dict(
+    CENC = _reflection.GeneratedProtocolMessageType('CENC', (_message.Message,), dict(
       DESCRIPTOR = _LICENSEREQUEST_CONTENTIDENTIFICATION_CENC,
       __module__ = 'widevine'
       # @@protoc_insertion_point(class_scope:LicenseRequest.ContentIdentification.CENC)
       ))
     ,
 
-    WebM = _reflection.GeneratedProtocolMessageType('WebM', (message.Message,), dict(
+    WebM = _reflection.GeneratedProtocolMessageType('WebM', (_message.Message,), dict(
       DESCRIPTOR = _LICENSEREQUEST_CONTENTIDENTIFICATION_WEBM,
       __module__ = 'widevine'
       # @@protoc_insertion_point(class_scope:LicenseRequest.ContentIdentification.WebM)
       ))
     ,
 
-    ExistingLicense = _reflection.GeneratedProtocolMessageType('ExistingLicense', (message.Message,), dict(
+    ExistingLicense = _reflection.GeneratedProtocolMessageType('ExistingLicense', (_message.Message,), dict(
       DESCRIPTOR = _LICENSEREQUEST_CONTENTIDENTIFICATION_EXISTINGLICENSE,
       __module__ = 'widevine'
       # @@protoc_insertion_point(class_scope:LicenseRequest.ContentIdentification.ExistingLicense)
@@ -3678,25 +3678,25 @@ _sym_db.RegisterMessage(LicenseRequest.ContentIdentification.CENC)
 _sym_db.RegisterMessage(LicenseRequest.ContentIdentification.WebM)
 _sym_db.RegisterMessage(LicenseRequest.ContentIdentification.ExistingLicense)
 
-LicenseRequestRaw = _reflection.GeneratedProtocolMessageType('LicenseRequestRaw', (message.Message,), dict(
+LicenseRequestRaw = _reflection.GeneratedProtocolMessageType('LicenseRequestRaw', (_message.Message,), dict(
 
-  ContentIdentification = _reflection.GeneratedProtocolMessageType('ContentIdentification', (message.Message,), dict(
+  ContentIdentification = _reflection.GeneratedProtocolMessageType('ContentIdentification', (_message.Message,), dict(
 
-    CENC = _reflection.GeneratedProtocolMessageType('CENC', (message.Message,), dict(
+    CENC = _reflection.GeneratedProtocolMessageType('CENC', (_message.Message,), dict(
       DESCRIPTOR = _LICENSEREQUESTRAW_CONTENTIDENTIFICATION_CENC,
       __module__ = 'widevine'
       # @@protoc_insertion_point(class_scope:LicenseRequestRaw.ContentIdentification.CENC)
       ))
     ,
 
-    WebM = _reflection.GeneratedProtocolMessageType('WebM', (message.Message,), dict(
+    WebM = _reflection.GeneratedProtocolMessageType('WebM', (_message.Message,), dict(
       DESCRIPTOR = _LICENSEREQUESTRAW_CONTENTIDENTIFICATION_WEBM,
       __module__ = 'widevine'
       # @@protoc_insertion_point(class_scope:LicenseRequestRaw.ContentIdentification.WebM)
       ))
     ,
 
-    ExistingLicense = _reflection.GeneratedProtocolMessageType('ExistingLicense', (message.Message,), dict(
+    ExistingLicense = _reflection.GeneratedProtocolMessageType('ExistingLicense', (_message.Message,), dict(
       DESCRIPTOR = _LICENSEREQUESTRAW_CONTENTIDENTIFICATION_EXISTINGLICENSE,
       __module__ = 'widevine'
       # @@protoc_insertion_point(class_scope:LicenseRequestRaw.ContentIdentification.ExistingLicense)
@@ -3717,121 +3717,121 @@ _sym_db.RegisterMessage(LicenseRequestRaw.ContentIdentification.CENC)
 _sym_db.RegisterMessage(LicenseRequestRaw.ContentIdentification.WebM)
 _sym_db.RegisterMessage(LicenseRequestRaw.ContentIdentification.ExistingLicense)
 
-ProvisionedDeviceInfo = _reflection.GeneratedProtocolMessageType('ProvisionedDeviceInfo', (message.Message,), dict(
+ProvisionedDeviceInfo = _reflection.GeneratedProtocolMessageType('ProvisionedDeviceInfo', (_message.Message,), dict(
   DESCRIPTOR = _PROVISIONEDDEVICEINFO,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:ProvisionedDeviceInfo)
   ))
 _sym_db.RegisterMessage(ProvisionedDeviceInfo)
 
-ProvisioningOptions = _reflection.GeneratedProtocolMessageType('ProvisioningOptions', (message.Message,), dict(
+ProvisioningOptions = _reflection.GeneratedProtocolMessageType('ProvisioningOptions', (_message.Message,), dict(
   DESCRIPTOR = _PROVISIONINGOPTIONS,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:ProvisioningOptions)
   ))
 _sym_db.RegisterMessage(ProvisioningOptions)
 
-ProvisioningRequest = _reflection.GeneratedProtocolMessageType('ProvisioningRequest', (message.Message,), dict(
+ProvisioningRequest = _reflection.GeneratedProtocolMessageType('ProvisioningRequest', (_message.Message,), dict(
   DESCRIPTOR = _PROVISIONINGREQUEST,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:ProvisioningRequest)
   ))
 _sym_db.RegisterMessage(ProvisioningRequest)
 
-ProvisioningResponse = _reflection.GeneratedProtocolMessageType('ProvisioningResponse', (message.Message,), dict(
+ProvisioningResponse = _reflection.GeneratedProtocolMessageType('ProvisioningResponse', (_message.Message,), dict(
   DESCRIPTOR = _PROVISIONINGRESPONSE,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:ProvisioningResponse)
   ))
 _sym_db.RegisterMessage(ProvisioningResponse)
 
-RemoteAttestation = _reflection.GeneratedProtocolMessageType('RemoteAttestation', (message.Message,), dict(
+RemoteAttestation = _reflection.GeneratedProtocolMessageType('RemoteAttestation', (_message.Message,), dict(
   DESCRIPTOR = _REMOTEATTESTATION,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:RemoteAttestation)
   ))
 _sym_db.RegisterMessage(RemoteAttestation)
 
-SessionInit = _reflection.GeneratedProtocolMessageType('SessionInit', (message.Message,), dict(
+SessionInit = _reflection.GeneratedProtocolMessageType('SessionInit', (_message.Message,), dict(
   DESCRIPTOR = _SESSIONINIT,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:SessionInit)
   ))
 _sym_db.RegisterMessage(SessionInit)
 
-SessionState = _reflection.GeneratedProtocolMessageType('SessionState', (message.Message,), dict(
+SessionState = _reflection.GeneratedProtocolMessageType('SessionState', (_message.Message,), dict(
   DESCRIPTOR = _SESSIONSTATE,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:SessionState)
   ))
 _sym_db.RegisterMessage(SessionState)
 
-SignedCertificateStatusList = _reflection.GeneratedProtocolMessageType('SignedCertificateStatusList', (message.Message,), dict(
+SignedCertificateStatusList = _reflection.GeneratedProtocolMessageType('SignedCertificateStatusList', (_message.Message,), dict(
   DESCRIPTOR = _SIGNEDCERTIFICATESTATUSLIST,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:SignedCertificateStatusList)
   ))
 _sym_db.RegisterMessage(SignedCertificateStatusList)
 
-SignedDeviceCertificate = _reflection.GeneratedProtocolMessageType('SignedDeviceCertificate', (message.Message,), dict(
+SignedDeviceCertificate = _reflection.GeneratedProtocolMessageType('SignedDeviceCertificate', (_message.Message,), dict(
   DESCRIPTOR = _SIGNEDDEVICECERTIFICATE,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:SignedDeviceCertificate)
   ))
 _sym_db.RegisterMessage(SignedDeviceCertificate)
 
-SignedProvisioningMessage = _reflection.GeneratedProtocolMessageType('SignedProvisioningMessage', (message.Message,), dict(
+SignedProvisioningMessage = _reflection.GeneratedProtocolMessageType('SignedProvisioningMessage', (_message.Message,), dict(
   DESCRIPTOR = _SIGNEDPROVISIONINGMESSAGE,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:SignedProvisioningMessage)
   ))
 _sym_db.RegisterMessage(SignedProvisioningMessage)
 
-SignedMessage = _reflection.GeneratedProtocolMessageType('SignedMessage', (message.Message,), dict(
+SignedMessage = _reflection.GeneratedProtocolMessageType('SignedMessage', (_message.Message,), dict(
   DESCRIPTOR = _SIGNEDMESSAGE,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:SignedMessage)
   ))
 _sym_db.RegisterMessage(SignedMessage)
 
-WidevineCencHeader = _reflection.GeneratedProtocolMessageType('WidevineCencHeader', (message.Message,), dict(
+WidevineCencHeader = _reflection.GeneratedProtocolMessageType('WidevineCencHeader', (_message.Message,), dict(
   DESCRIPTOR = _WIDEVINECENCHEADER,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:WidevineCencHeader)
   ))
 _sym_db.RegisterMessage(WidevineCencHeader)
 
-SignedLicenseRequest = _reflection.GeneratedProtocolMessageType('SignedLicenseRequest', (message.Message,), dict(
+SignedLicenseRequest = _reflection.GeneratedProtocolMessageType('SignedLicenseRequest', (_message.Message,), dict(
   DESCRIPTOR = _SIGNEDLICENSEREQUEST,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:SignedLicenseRequest)
   ))
 _sym_db.RegisterMessage(SignedLicenseRequest)
 
-SignedLicenseRequestRaw = _reflection.GeneratedProtocolMessageType('SignedLicenseRequestRaw', (message.Message,), dict(
+SignedLicenseRequestRaw = _reflection.GeneratedProtocolMessageType('SignedLicenseRequestRaw', (_message.Message,), dict(
   DESCRIPTOR = _SIGNEDLICENSEREQUESTRAW,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:SignedLicenseRequestRaw)
   ))
 _sym_db.RegisterMessage(SignedLicenseRequestRaw)
 
-SignedLicense = _reflection.GeneratedProtocolMessageType('SignedLicense', (message.Message,), dict(
+SignedLicense = _reflection.GeneratedProtocolMessageType('SignedLicense', (_message.Message,), dict(
   DESCRIPTOR = _SIGNEDLICENSE,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:SignedLicense)
   ))
 _sym_db.RegisterMessage(SignedLicense)
 
-SignedServiceCertificate = _reflection.GeneratedProtocolMessageType('SignedServiceCertificate', (message.Message,), dict(
+SignedServiceCertificate = _reflection.GeneratedProtocolMessageType('SignedServiceCertificate', (_message.Message,), dict(
   DESCRIPTOR = _SIGNEDSERVICECERTIFICATE,
   __module__ = 'widevine'
   # @@protoc_insertion_point(class_scope:SignedServiceCertificate)
   ))
 _sym_db.RegisterMessage(SignedServiceCertificate)
 
-FileHashes = _reflection.GeneratedProtocolMessageType('FileHashes', (message.Message,), dict(
+FileHashes = _reflection.GeneratedProtocolMessageType('FileHashes', (_message.Message,), dict(
 
-  Signature = _reflection.GeneratedProtocolMessageType('Signature', (message.Message,), dict(
+  Signature = _reflection.GeneratedProtocolMessageType('Signature', (_message.Message,), dict(
     DESCRIPTOR = _FILEHASHES_SIGNATURE,
     __module__ = 'widevine'
     # @@protoc_insertion_point(class_scope:FileHashes.Signature)

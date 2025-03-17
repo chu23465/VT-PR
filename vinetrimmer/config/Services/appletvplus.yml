@@ -1,7 +1,24 @@
-user_agent: 'ATVE/6.2.0 Android/10 build/6A226 maker/Google model/Chromecast FW/QTS2.200918.0337115981'  # AppleTV6,2/11.1 | ATVE/1.1 FireOS/6.2.6.8 build/4A93 maker/Amazon model/FireTVStick4K FW/NS6268/2315
+user_agent: 'ATVE/1.1 FireOS/6.2.6.8 build/4A93 maker/Amazon model/FireTVStick4K FW/NS6268/2315'  # AppleTV6,2/11.1 | ATVE/1.1 FireOS/6.2.6.8 build/4A93 maker/Amazon model/FireTVStick4K FW/NS6268/2315
 
 endpoints:
   title: 'https://tv.apple.com/api/uts/v3/{type}/{id}'
   tv_episodes: 'https://tv.apple.com/api/uts/v2/view/show/{id}/episodes'
   manifest: 'https://tv.apple.com/api/uts/v2/view/product/{id}/personalized'
   license:  'https://play.itunes.apple.com/WebObjects/MZPlay.woa/wa/fpsRequest'  # 'https://play.itunes.apple.com/WebObjects/MZPlay.woa/web/video/subscription/license'
+  homecanvas: 'https://tv.apple.com/api/uts/v3/canvases/channels/tvs.sbd.4000'
+
+device:
+  # I have no idea what these values are or what they represent.
+  # These might not even be device related.
+  utsk: '6e3013c6d6fae3c2::::::e08f7cfb96228836'  # 6e3013c6d6fae3c2::::::e08f7cfb96228836 (?),  6e3013c6d6fae3c2::::::235656c069bb0efb (web), 6e3013c6d6fae3c2::::::e4e626d9198feeb7 (chrome)
+  caller: 'web' # ?, vz, web
+  sf: '143441'  # "storefront", country | 143441: US, 143444: GB | 143443: DE For other countrys -> https://gist.github.com/BrychanOdlum/2208578ba151d1d7c4edeeda15b4e9b1
+  v: '46'  # "version" | latest: 46, web: 82
+  pfm: 'appletv'  # "platform" | appletv, vz, web
+  mfr: 'Apple'  # "manufacturer" | Apple, Amazon
+  locale: 'en-US'
+  l: 'en'
+  brandId: 'tvs.sbd.4000' # ctx_brand - tvs.sbd.4000 is subscription channel, renting channel is tvs.sbd.9001, mls sport channel is tvs.sbd.7000
+  count: '100'
+  skip: '0'
+  svcId: 'tvs.vds.4105' # tvs.vds.4054

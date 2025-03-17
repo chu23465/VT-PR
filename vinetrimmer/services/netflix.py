@@ -17,7 +17,7 @@ from vinetrimmer.utils.collections import as_list, flatten
 from vinetrimmer.utils.MSL import MSL
 from vinetrimmer.utils.MSL.schemes import KeyExchangeSchemes
 from vinetrimmer.utils.MSL.schemes.UserAuthentication import UserAuthentication
-from pywidevine.device import DeviceTypes
+from vinetrimmer.utils.widevine.device import LocalDevice
 from vinetrimmer.vendor.pymp4.parser import Box
 from vinetrimmer.utils.gen_esn import chrome_esn_generator
 
@@ -135,7 +135,7 @@ class Netflix(BaseService):
                 service_data=episode
             ) for episode in episodes]
 
-        # TODO: Get original language without making an extra manifest.xml request
+        # TODO: Get original language without making an extra manifest request
         self.log.warning("HEVC PROFILES for the first title sometimes FAIL with Validation error so we use H264 HPL as a first trial, if it does not exist, we try H264 MPL")
         try:
             manifest = self.get_manifest(titles[0], self.profiles)
@@ -177,13 +177,13 @@ class Netflix(BaseService):
                 license_url = manifest["links"]["license"]["href"]
 
 
-                if self.cdm.device.security_level == 3 and self.cdm.device.type == DeviceTypes.ANDROID:
+                if self.cdm.device.security_level == 3 and self.cdm.device.type == LocalDevice.Types.ANDROID:
                     max_quality = max(x.height for x in manifest_tracks.videos)
                     if profile == "MPL" and max_quality >= 720:
                         manifest_sd = self.get_manifest(title, self.config["profiles"]["video"]["H264"]["BPL"])
                         license_url_sd = manifest_sd["links"]["license"]["href"]
                         if "SD_LADDER" in manifest_sd["video_tracks"][0]["streams"][0]["tags"]:
-                            # SD manifest.xml is new encode encrypted with different keys that won't work for HD
+                            # SD manifest is new encode encrypted with different keys that won't work for HD
                             continue
                         license_url = license_url_sd
                     if profile == "HPL" and max_quality >= 1080:
@@ -383,8 +383,10 @@ class Netflix(BaseService):
         self.profiles = self.get_profiles()
         self.log.info("Initializing a Netflix MSL client")
         # Grab ESN based on CDM from secrets if no ESN argument provided
-        if self.cdm.device.type == DeviceTypes.CHROME:  # ESN GENERATOR FOR CHROME
+        if (self.cdm.device.type == LocalDevice.Types.CHROME if "common_privacy_cert" in dir(self.cdm) else False):  # ESN GENERATOR FOR CHROME
             self.esn = chrome_esn_generator()
+        elif "group_certificate" in dir(self.cdm):
+            self.esn = edge_esn_generator()
         else:
             sel.log.info(self.config)
             esn_map = self.config.get("esn_map", {})
@@ -394,14 +396,14 @@ class Netflix(BaseService):
             raise self.log.exit(" - No ESN specified")
         self.log.info(f" + ESN: {self.esn}")
         scheme = {
-            DeviceTypes.CHROME: KeyExchangeSchemes.AsymmetricWrapped,
-            DeviceTypes.ANDROID: KeyExchangeSchemes.Widevine
+            LocalDevice.Types.CHROME: KeyExchangeSchemes.AsymmetricWrapped,
+            LocalDevice.Types.ANDROID: KeyExchangeSchemes.Widevine
         }[self.cdm.device.type]
         self.log.info(f" + Scheme: {scheme}")
         self.msl = MSL.handshake(
             scheme=scheme,
             session=self.session,
-            endpoint=self.config["endpoints"]["manifest.xml"],
+            endpoint=self.config["endpoints"]["manifest"],
             sender=self.esn,
             cdm=self.cdm,
             msl_keys_path=self.get_cache("msl_{id}_{esn}_{scheme}.json".format(
@@ -412,7 +414,7 @@ class Netflix(BaseService):
         )
         if not self.session.cookies:
             raise self.log.exit(" - No cookies provided, cannot log in.")
-        if self.cdm.device.type == DeviceTypes.CHROME:
+        if self.cdm.device.type == LocalDevice.Types.CHROME:
             self.userauthdata = UserAuthentication.NetflixIDCookies(
                 netflixid=self.session.cookies.get_dict()["NetflixId"],
                 securenetflixid=self.session.cookies.get_dict()["SecureNetflixId"]
@@ -634,17 +636,17 @@ class Netflix(BaseService):
         self.log.debug("Profiles:\n\t" + "\n\t".join(profiles))
 
         params = {}
-        if self.cdm.device.type == DeviceTypes.CHROME:
+        if (self.cdm.device.type == LocalDevice.Types.CHROME if "common_privacy_cert" in dir(self.cdm) else False):
             params = {
                 "reqAttempt": 1,
                 "reqPriority": 0,
-                "reqName": "prefetch/manifest.xml",
+                "reqName": "prefetch/manifest",
                 "clienttype": "akira",
                 }
             
         manifest_data = {
             'version': 2,
-            'url': '/manifest.xml',
+            'url': '/manifest',
             "id": int(time.time()),
              "esn": self.esn,
             'languages': ['en-US'],
@@ -691,7 +693,7 @@ class Netflix(BaseService):
             
         
         _, payload_chunks = self.msl.send_message(
-            endpoint=self.config["endpoints"]["manifest.xml"],
+            endpoint=self.config["endpoints"]["manifest"],
             params=params,
             application_data=manifest_data,
             userauthdata=self.userauthdata

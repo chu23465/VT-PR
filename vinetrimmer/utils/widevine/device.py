@@ -19,7 +19,7 @@ from Cryptodome.PublicKey import RSA
 from Cryptodome.Random import get_random_bytes
 from Cryptodome.Signature import pss
 from Cryptodome.Util import Padding as CPadding
-from protobuf3.message import DecodeError
+from google.protobuf.message import DecodeError
 
 from vinetrimmer.utils.widevine.key import Key
 from vinetrimmer.utils.widevine.protos import widevine_pb2 as widevine
@@ -340,7 +340,7 @@ class LocalDevice(BaseDevice):
 
 
 class RemoteDevice(BaseDevice):
-    def __init__(self, *_, name, host, username, key, device=None, type, system_id, security_level, **__):
+    def __init__(self, *_, type, system_id, security_level, name, host, username, key, device=None, **__):
         self.type = self.Types[type] if isinstance(type, str) else type
         self.system_id = system_id
         self.security_level = security_level

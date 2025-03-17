@@ -20,11 +20,11 @@ from langcodes import Language
 from requests import Session
 from vinetrimmer import config
 from vinetrimmer.constants import LANGUAGE_MUX_MAP, TERRITORY_MAP
-from vinetrimmer.utils import get_boxes, get_closest_match, is_close_match, try_get
+from vinetrimmer.utils import Cdm, get_boxes, get_closest_match, is_close_match, try_get
 from vinetrimmer.utils.collections import as_list
-from vinetrimmer.utils.io import aria2c, download_range, saldl, m3u8dl
+from vinetrimmer.utils.io import aria2c, download_range, saldl
 from vinetrimmer.utils.subprocess import ffprobe
-#from vinetrimmer.utils.widevine.protos.widevine_pb2 import WidevineCencHeader
+from vinetrimmer.utils.widevine.protos.widevine_pb2 import WidevineCencHeader
 from vinetrimmer.utils.xml import load_xml
 from vinetrimmer.vendor.pymp4.parser import Box, MP4
 
@@ -63,7 +63,6 @@ class Track:
         URL = 1  # Direct URL, nothing fancy
         M3U = 2  # https://en.wikipedia.org/wiki/M3U (and M3U8)
         MPD = 3  # https://en.wikipedia.org/wiki/Dynamic_Adaptive_Streaming_over_HTTP
-        ISM = 4  # https://bitmovin.com/blog/microsoft-smooth-streaming-mss/
 
     def __init__(self, id_, source, url, codec, language=None, descriptor=Descriptor.URL,
                  needs_proxy=False, needs_repack=False, encrypted=False, pssh=None, note=None, kid=None, key=None, extra=None):
@@ -403,6 +402,7 @@ class Track:
                     segment.uri
                 )
             self.url = segments
+
         if self.source == "CORE":
             asyncio.run(saldl(
                 self.url,
@@ -410,19 +410,21 @@ class Track:
                 headers,
                 proxy if self.needs_proxy else None
             ))
-        elif self.descriptor == self.Descriptor.ISM:
-            asyncio.run(m3u8dl(
-                self.url,
-                save_path,
-                self
-            ))
         else:
-            asyncio.run(aria2c(
-                self.url,
-                save_path,
-                headers,
-                proxy if self.needs_proxy else None
-            ))
+            try:
+                asyncio.run(aria2c(
+                    self.url,
+                    save_path,
+                    headers,
+                    proxy if self.needs_proxy else None
+                ))
+            except:
+                asyncio.run(aria2c(
+                    self.url,
+                    save_path,
+                    headers,
+                    proxy if self.needs_proxy else None
+                ))
 
         if os.stat(save_path).st_size <= 3:  # Empty UTF-8 BOM == 3 bytes
             raise IOError(
@@ -561,7 +563,7 @@ class VideoTrack(Track):
                 url="",  # doesn't need to be downloaded
                 codec="srt",
                 language=language,
-                is_original_lang=original,  # TODO: Figure out if this is the original title language
+                #is_original_lang=original,  # TODO: Figure out if this is the original title language
                 cc=True
             )
             cc_track._location = out_path

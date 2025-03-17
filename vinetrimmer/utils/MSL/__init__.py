@@ -138,7 +138,7 @@ class MSL:
 
             key_data = key_response_data["keydata"]
             if scheme == KeyExchangeSchemes.Widevine:
-                if  "Remote" in cdm.device.__class__.__name__:
+                try:
                     msl_keys.encryption, msl_keys.sign = cdm.device.exchange(
                         cdm.sessions[msl_keys.cdm_session],
                         license_res=key_data["cdmkeyresponse"],
@@ -146,7 +146,7 @@ class MSL:
                         hmac_key_id=base64.b64decode(key_data["hmackeyid"])
                     )
                     cdm.parse_license(msl_keys.cdm_session, key_data["cdmkeyresponse"])
-                else:
+                except:
                     cdm.parse_license(msl_keys.cdm_session, key_data["cdmkeyresponse"])
                     keys = cdm.get_keys(msl_keys.cdm_session)
                     msl_keys.encryption = MSL.get_widevine_key(

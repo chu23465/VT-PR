@@ -3,7 +3,7 @@ import re
 from hashlib import md5
 
 from vinetrimmer.objects import AudioTrack, TextTrack, Track, Tracks, VideoTrack
-#from vinetrimmer.utils import Cdm
+from vinetrimmer.utils import Cdm
 from vinetrimmer.vendor.pymp4.parser import Box
 
 
@@ -68,7 +68,7 @@ def parse(master, source=None):
             fps=x.stream_info.frame_rate,
             hdr10=(x.stream_info.codecs.split(".")[0] not in ("dvhe", "dvh1")
                    and (x.stream_info.video_range or "SDR").strip('"') != "SDR"),
-            hlg=False,  # TODO: Can we get this from the manifest.xml?
+            hlg=False,  # TODO: Can we get this from the manifest?
             dv=x.stream_info.codecs.split(".")[0] in ("dvhe", "dvh1"),
             # switches/options
             descriptor=Track.Descriptor.M3U,

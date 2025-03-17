@@ -15,7 +15,7 @@ aria2c:
   
 
 cdm:
-  default: 'hisense_smarttv_he55a7000euwts_sl3000'
+  default: 'generic_8159_l3'
 
 cdm_api: []
 

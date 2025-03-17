@@ -13,13 +13,13 @@ http.headers.update({
 })
 # get player fragment page
 fragment = http.get(sys.argv[1].replace("/videos/", "/player5_fragment/")).text
-# get encrypted manifest.xml urls for both hls and dash
+# get encrypted manifest urls for both hls and dash
 encrypted_manifests = {k: bytes.fromhex(re.findall(
     r'<source\s+type="application/' + v + r'"\s+src=".+?/e-stream-url\?stream=(.+?)"',
     fragment
 )[0][0]) for k, v in {"hls": "x-mpegURL", "dash": r"dash\+xml"}.items()}
 
-# decrypt all manifest.xml urls in manifests
+# decrypt all manifest urls in manifests
 m = re.search(r"^\s*chabi:\s*'(.+?)'", fragment, re.MULTILINE)
 if not m:
     raise ValueError("Unable to get key")

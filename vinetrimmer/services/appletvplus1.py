@@ -2,7 +2,7 @@ import click
 
 from base64 import b64encode, b64decode
 from datetime import datetime, timedelta
-from json import loads, JSONDecodeError
+from json import loads
 from m3u8 import loads as m3u8loads
 from re import search
 from requests import get, HTTPError
@@ -13,15 +13,10 @@ from vinetrimmer.objects import Title, Tracks, VideoTrack, AudioTrack, TextTrack
 from vinetrimmer.services.BaseService import BaseService
 
 
-
 class AppleTVPlus(BaseService):
     """
     Service code for Apple's TV Plus streaming service (https://tv.apple.com).
 
-    \b
-    WIP: decrypt and removal of bumper/dub cards
-
-    \b
     Authorization: Cookies
     Security:
         Playready:
@@ -40,16 +35,9 @@ class AppleTVPlus(BaseService):
 
     TITLE_RE = r"^(?:https?://tv\.apple\.com(?:/[a-z]{2})?/(?:movie|show|episode)/[a-z0-9-]+/)?(?P<id>umc\.cmc\.[a-z0-9]+)"  # noqa: E501
 
+    VIDEO_CODEC_MAP = {"H264": ["avc"], "H265": ["hvc", "hev", "dvh"]}
 
-    VIDEO_CODEC_MAP = {
-        "H264": ["avc"],
-        "H265": ["hvc", "hev", "dvh"]
-    }
-    AUDIO_CODEC_MAP = {
-        "AAC": ["HE", "stereo"],
-        "AC3": ["ac3"],
-        "EC3": ["ec3", "atmos"]
-    }
+    AUDIO_CODEC_MAP = {"AAC": ["HE", "stereo"], "AC3": ["ac3"], "EC3": ["ec3", "atmos"]}
 
     @staticmethod
     @click.command(name="AppleTVPlus", short_help="https://tv.apple.com")
@@ -66,14 +54,8 @@ class AppleTVPlus(BaseService):
         self.alang = ctx.parent.params["alang"]
         self.subs_only = ctx.parent.params["subs_only"]
         self.vcodec = ctx.parent.params["vcodec"]
-        self.range = ctx.parent.params["range_"] or "SDR"
-        self.quality = ctx.parent.params["quality"] or 1080
 
         self.extra_server_parameters: Optional[dict] = None
-
-        if ("HDR" in self.range) or ("DV" in self.range) or ((self.quality > 1080) if self.quality else False):
-            self.log.info(" - Setting Video codec to H265 to get UHD")
-            self.vcodec = "H265"
 
         self.configure()
 
@@ -84,61 +66,88 @@ class AppleTVPlus(BaseService):
         for i in range(2):
             try:
                 req = self.session.get(
-                    url=self.config["endpoints"]["title"].format(type={0: "shows", 1: "movies"}[i], id=self.title),
-                    params=self.config["device"]
+                    url=self.config["endpoints"]["title"].format(
+                        types={0: "shows", 1: "movies"}[i], cid=self.title
+                    ),
+                    params={
+                        "caller": "web",
+                        "count": "100",
+                        "ctx_brand": "tvs.sbd.4000",
+                        "l": "en",
+                        "locale": "en-US",
+                        "mfr": "Apple",
+                        "pfm": "appletv",
+                        "sf": "143441",
+                        "skip": "0",
+                        "utsk": "6e3013c6d6fae3c2::::::235656c069bb0efb",
+                        "v": "56",
+                    },
                 )
 
             except HTTPError as error:
                 if error.response.status_code != 404:
                     raise
-            else:
-                if req.ok:
-                    break
 
-        if not req:
-            raise self.log.exit(f" - Title ID {self.title!r} could not be found.")
-        try:
-            title = req.json()["data"]["content"]
-        except json.JSONDecodeError:
-            raise ValueError(f"Failed to load title manifest: {r.text}")
+        title = req.json()
 
-        self.log.debug(title)
-
-        if title["type"] == "Movie":
+        if title["data"]["content"]["type"] == "Movie":
             titles.append(
                 Title(
                     id_=self.title,
                     type_=Title.Types.MOVIE,
-                    name=title["title"],
-                    year=datetime.utcfromtimestamp(title["releaseDate"] / 1000).year,
-                    original_lang=title["originalSpokenLanguages"][0]["locale"] if "originalSpokenLanguages" in title.keys() else "und",
+                    name=title["data"]["content"]["title"],
+                    year=(
+                        datetime(1970, 1, 1)
+                        + timedelta(
+                            milliseconds=title["data"]["content"]["releaseDate"]
+                        )
+                    ).year,
+                    original_lang=title["data"]["content"]["originalSpokenLanguages"][
+                        0
+                    ]["locale"],
                     source=self.ALIASES[0],
-                    service_data=title,
+                    service_data=title["data"]["content"],
                 )
             )
 
         else:
             req = self.session.get(
-                url=self.config["endpoints"]["tv_episodes"].format(id=self.title),
-                params=self.config["device"]
+                url=self.config["endpoints"]["episode"].format(cid=self.title),
+                params={
+                    "caller": "web",
+                    "count": "100",
+                    "ctx_brand": "tvs.sbd.4000",
+                    "l": "en",
+                    "locale": "en-US",
+                    "mfr": "Apple",
+                    "pfm": "appletv",
+                    "sf": "143441",
+                    "skip": "0",
+                    "utsk": "6e3013c6d6fae3c2::::::235656c069bb0efb",
+                    "v": "56",
+                },
             )
 
-            try:
-                episodes = req.json()["data"]["episodes"]
-            except JSONDecodeError:
-                raise ValueError(f"Failed to load episodes list: {req.text}")
+            data = req.json()
 
-            for episode in episodes:
+            for episode in data["data"]["episodes"]:
                 titles.append(
                     Title(
                         id_=self.title,
                         type_=Title.Types.TV,
                         name=episode["showTitle"],
-                        year=datetime.utcfromtimestamp(title["releaseDate"] / 1000).year,
+                        year=(
+                            datetime(1970, 1, 1)
+                            + timedelta(
+                                milliseconds=title["data"]["content"]["releaseDate"]
+                            )
+                        ).year,
                         season=episode["seasonNumber"],
                         episode=episode["episodeNumber"],
                         episode_name=episode.get("title"),
-                        original_lang=title["originalSpokenLanguages"][0]["locale"] if "originalSpokenLanguages" in title.keys() else "und",
+                        original_lang=title["data"]["content"][
+                            "originalSpokenLanguages"
+                        ][0]["locale"],
                         source=self.ALIASES[0],
                         service_data=episode,
                     )
@@ -150,30 +159,38 @@ class AppleTVPlus(BaseService):
         tracks = Tracks()
 
         req = self.session.get(
-            url=self.config["endpoints"]["manifest"].format(id=title.service_data["id"]),
-            params=self.config["device"]
+            url=self.config["endpoints"]["manifest.xml"].format(
+                cid=title.service_data["id"]
+            ),
+            params={
+                "caller": "web",
+                "count": "100",
+                "ctx_brand": "tvs.sbd.4000",
+                "l": "en",
+                "locale": "en-US",
+                "mfr": "Apple",
+                "pfm": "appletv",
+                "sf": "143441",
+                "skip": "0",
+                "utsk": "6e3013c6d6fae3c2::::::235656c069bb0efb",
+                "v": "56",
+            },
         )
 
-        
-        try:
-            data = req.json()
-        except JSONDecodeError:
-            raise ValueError(f"Failed to load stream data: {req.text}")
+        data = req.json()
 
         stream_data = data["data"]["content"]["playables"][0]
 
         if not stream_data["isEntitledToPlay"]:
-            self.log.debug(stream_data)
             raise self.log.exit(" - User is not entitled to play this title")
 
-        self.extra_server_parameters = stream_data["assets"]["fpsKeyServerQueryParameters"]
-
-        self.log.debug(self.extra_server_parameters)
-        self.log.debug(stream_data["assets"]["hlsUrl"])
+        self.extra_server_parameters = stream_data["assets"][
+            "fpsKeyServerQueryParameters"
+        ]
 
         req = get(
             url=stream_data["assets"]["hlsUrl"],
-            headers={"User-Agent": "AppleTV6,2/11.1"}, # 'ATVE/1.1 FireOS/6.2.6.8 build/4A93 maker/Amazon model/FireTVStick4K FW/NS6268/2315'
+            headers={"User-Agent": "AppleTV6,2/11.1"},
         )
 
         tracks.add(
@@ -182,28 +199,14 @@ class AppleTVPlus(BaseService):
             )
         )
 
-
         for track in tracks:
             track.extra = {"url": track.url, "manifest.xml": track.extra}
-            track_data = track.extra["manifest.xml"]
             if isinstance(track, VideoTrack):
                 track.encrypted = True
                 track.needs_ccextractor_first = True
-                track.needs_proxy = False
 
             elif isinstance(track, AudioTrack):
                 track.encrypted = True
-                track.needs_proxy = False
-                bitrate = search(pattern=r"&g=(\d+?)&", string=track_data.uri )
-                if not bitrate:
-                    bitrate = re.search(r"_gr(\d+)_", track_data.uri) # new
-                if bitrate:
-                    track.bitrate = int(bitrate[1][-3::]) * 1000
-
-                else:
-                    raise ValueError(f"Unable to get a bitrate value for Track {track.id}")
-
-                track.codec = track.codec.replace("_vod", "")
 
             elif isinstance(track, TextTrack):
                 track.codec = "vtt"
@@ -211,7 +214,9 @@ class AppleTVPlus(BaseService):
         quality = None
         for line in req.text.splitlines():
             if line.startswith("#--"):
-                quality = {"SD": 480, "HD720": 720, "HD": 1080, "UHD": 2160}.get(line.split()[2])
+                quality = {"SD": 480, "HD720": 720, "HD": 1080, "UHD": 2160}.get(
+                    line.split()[2]
+                )
 
             elif not line.startswith("#"):
                 track = next(
@@ -219,6 +224,23 @@ class AppleTVPlus(BaseService):
                 )
                 if track:
                     track.extra["quality"] = quality
+
+        for track in tracks:
+            track_data = track.extra["manifest.xml"]
+            if isinstance(track, AudioTrack):
+                bitrate = search(
+                    pattern=r"&g=(\d+?)&",
+                    string=track_data.uri,
+                )
+                if bitrate:
+                    track.bitrate = int(bitrate[1][-3::]) * 1000
+
+                else:
+                    raise ValueError(
+                        f"Unable to get a bitrate value for Track {track.id}"
+                    )
+
+                track.codec = track.codec.replace("_vod", "")
 
         tracks.videos = [
             x
@@ -245,16 +267,7 @@ class AppleTVPlus(BaseService):
             or not x.sdh
         ]
 
-        try:
-            return Tracks([
-                # multiple CDNs, only want one
-                x for x in tracks
-                if any(
-                    cdn in as_list(x.url)[0].split("?")[1].split("&") for cdn in ["cdn=ak", "cdn=vod-ak-aoc.tv.apple.com"]
-                )
-            ])
-        except:
-            return Tracks([x for x in tracks])
+        return tracks
 
     def get_chapters(self, title: Title) -> list[MenuTrack]:
         chapters = list()
@@ -273,23 +286,23 @@ class AppleTVPlus(BaseService):
                         "version": 1,
                         "streaming-keys": [
                             {
-                                "challenge": b64encode(challenge.encode("UTF-8")).decode("UTF-8"),
+                                "challenge": b64encode(
+                                    challenge.encode("UTF-8")
+                                ).decode("UTF-8"),
                                 "key-system": "com.microsoft.playready",
-                                "uri": f"data:text/plain;charset=UTF-16;base64,{track.pssh}",
+                                "uri": f"data:text/plain;charset=UTF-16;base64,{track.pssh_playready}",
                                 "id": 1,
                                 "lease-action": "start",
                                 "adamId": self.extra_server_parameters["adamId"],
                                 "isExternal": True,
-                                "svcId": self.extra_server_parameters["svcId"],
+                                "svcId": "tvs.vds.4078",
                             },
                         ],
                     },
                 },
-                params=self.config["device"]
             )
 
         except HTTPError as error:
-            self.log.warn(e)
             if not error.response.text:
                 raise self.log.exit(" - No License Returned!")
 
@@ -321,97 +334,30 @@ class AppleTVPlus(BaseService):
 
     def configure(self) -> None:
         self.log.info(" + Logging into Apple TV+...")
-        environment = self.get_environment_config()
-        if not environment:
-            raise ValueError("Failed to get AppleTV+ WEB TV App Environment Configuration...")
-        self.session.headers.update({
-            "User-Agent": self.config["user_agent"],
-            "Authorization": f"Bearer {environment['MEDIA_API']['token']}",
-            "media-user-token": self.session.cookies.get_dict()["media-user-token"],
-            "x-apple-music-user-token": self.session.cookies.get_dict()["media-user-token"]
-        })
 
-    def get_environment_config(self):
-        """Loads environment config data from WEB App's <meta> tag."""
-        res = self.session.get("https://tv.apple.com").text
-        env = search(pattern = r'web-tv-app/config/environment"[\s\S]*?content="([^"]+)', string = res)
-        if not env:
+        req = self.session.get("https://tv.apple.com")
+        data = req.text
+
+        data = search(
+            pattern=r'web-tv-app/config/environment"[\s\S]*?content="([^"]+)',
+            string=data,
+        )
+
+        if data:
+            data = loads(unquote(data[1]))
+
+        else:
             raise ValueError(
                 "Failed to get AppleTV+ WEB TV App Environment Configuration..."
             )
-        return loads(unquote(env[1]))
 
-    def scan(self, start: int, length: int) -> list:
-
-        # poetry run vt dl -al en -sl en --selected --proxy http://192.168.0.99:9766 --keys -q 2160 -v H265 ATVP 
-        # poetry run vt dl -al en -sl en --selected --proxy http://192.168.0.99:9766 --keys -q 2160 -v H265 -r DV ATVP 
-
-        urls = []
-        params = self.config["device"]
-        params["utscf"] = "OjAAAAEAAAAAAAAAEAAAACMA"
-        params["nextToken"] = str(start)
-
-        r = None
-        try:
-            r = self.session.get(
-                url=self.config["endpoints"]["homecanvas"],
-                params=params
-            )
-        except requests.HTTPError as e:
-            if e.response.status_code != 404:
-                raise
-
-        if not r:
-            raise self.log.exit(f" -  Canvas endpoint errored out")
-        try:
-            shelves = r.json()["data"]["canvas"]["shelves"]
-        except json.JSONDecodeError:
-            raise ValueError(f"Failed to load title manifest: {r.text}")
-
-        # TODO - Add check userisentitledtoplay before appending url
-        for shelf in shelves:
-            items = shelf["items"]
-            for item in items:
-                urls.append(item["url"])
-
-        url_regex = re.compile(r"^(?:https?://tv\.apple\.com(?:/[a-z]{2})?/(?P<type>movie|show|episode)/[a-z0-9-]+/)?(?P<id>umc\.cmc\.[a-z0-9]+)")
-
-        for url in urls:
-            match = url_regex.match(url)
-
-            if match:
-                # Extract the title type and ID
-                title_type = match.group("type") + "s"  # None if not present
-                title_id = match.group("id")
-
-            else:
-                continue
-
-            r = None
-            try:
-                r = self.session.get(
-                    url=self.config["endpoints"]["title"].format(type=title_type, id=title_id),
-                    params=self.config["device"]
-                )
-            except requests.HTTPError as e:
-                if e.response.status_code != 404:
-                    raise
-            if not r:
-                raise self.log.exit(f" - Title ID {self.title!r} could not be found.")
-            try:
-                shelves = r.json()["data"]["canvas"]["shelves"]
-            except json.JSONDecodeError:
-                raise ValueError(f"Failed to load title manifest: {r.text}")
-
-            for shelf in shelves:
-                if "uts.col.ContentRelated" in shelf["id"]:
-                    items = shelf["items"]
-                    for item in items:
-                        if item["url"] not in urls:
-                            # TODO - Add check userisentitledtoplay before appending url
-                            urls.append(item["url"])
-
-            if len(urls) >= length:
-                break
-
-        return urls
+        self.session.headers.update(
+            {
+                "Authorization": f"Bearer {data['MEDIA_API']['token']}",
+                "Media-User-Token": self.session.cookies.get_dict()["media-user-token"],
+                "User-Agent": self.config["user_agent"],
+                "X-Apple-Music-User-Token": self.session.cookies.get_dict()[
+                    "media-user-token"
+                ],
+            }
+        )

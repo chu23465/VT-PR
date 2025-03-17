@@ -71,8 +71,6 @@ def main(debug):
 
     dl()
 
-# D:\PlayReady-Amazon-Tool-main\.venv\Scripts\python.exe -X pycache_prefix=C:\Users\Aswin\AppData\Local\JetBrains\PyCharm2024.3\cpython-cache "C:/Program Files (x86)/JetBrains/PyCharm 2024.2.4/plugins/python-ce/helpers/pydev/pydevd.py" --port 42000 --module --multiprocess --save-signatures --qt-support=auto --file poetry run vt dl --no-cache --keys AMZN 0H7LY5ZKKBM1MIW0244WE9O2C4
-# Above seems to work
+
 if __name__ == "__main__":
-    #sys.argv = ["vinetrimmer", "dl", "--no-cache", "--keys", "AMZN", "0H7LY5ZKKBM1MIW0244WE9O2C4"]
     main()

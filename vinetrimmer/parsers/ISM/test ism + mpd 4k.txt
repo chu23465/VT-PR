@@ -1,0 +1,41 @@
+Title : Furiosa - Mad Max Saga
+
+• 4K CBR-VBR (SDR) 
+>>> VBR
+http://a279avoddashs3ww-a.akamaihd.net/3$0CiQIAhILCgknJUM9XTtqayUgJTABUgOAwAJ6A4C4F4IBAQGIAQUYAQ/ondemand/iad_2/4f96/58c2/5203/4340-8f3c-3ef982928185/c34de7c6-9488-4a84-9d14-0ec03130a1a2_corrected.mpd?encoding=segmentBase
+ca448355ec474c5a9faa0c3048bb04ac:5f6aee678e33e4b9da9398d2c9e5424e
+8f6fd20e45d3499aaae614d274ca12f5:4c48e93411330b23081fbbdffd407c45
+
+>> CBR
+http://avodsls3ww-s.akamaihd.net/d/2$u0KjZhxoqD1sCHceECSyo5zvYOY/ondemand/iad_2/6823/1854/fa7d/4516-8f57-472638c2bc33/16d6f5fc-c8fa-4291-bf08-9d8ccb8e78d8.ism/manifest?encoding=segmentBase
+a6db02c76088a449bd6124fb85087061:3198d1d4212cbe8b35eff1bf8092ce11
+32cc6b20b5094ef0a0b1e0222b9ab749:e8fa326212611639b26e41d8b5c5bc25
+
+• 4K CBR+VBR (HDR)
+>>> VBR
+http://a63avoddashs3ww-a.akamaihd.net/3$0CiQIAhILCgknJUM9XTtqayUgJTABUgOAwAJ6A4C4F4IBAQGIAQUYAQ/ondemand/iad_2/fb84/d47e/232b/4a44-bf88-2166d495df17/acd41e6d-fcc5-4136-9206-ced85bb474f9_corrected.mpd?encoding=segmentBase
+196d417b4cce4aaa82510ce1b876581f:264208e5699681c265f86911442da189
+18e1d971a222437e956ea0ac34ee431e:137ebd74fb3bb880b1dba6df4e129585
+
+>> CBR
+http://a192avoddashs3ww-a.akamaihd.net/3$0CiQIAhILCgknJUM9XTtqayUgJTABUgOAwAJ6A4C4F4IBAQGIAQUYAQ/ondemand/iad_2/143f/e3ac/435f/4a2a-b328-1e3ec4fe0730/9d856266-f2b6-4dd7-b8df-ea885cf17a1d_corrected.mpd?encoding=segmentBase
+cf22c31519c74cc184712b1736ab2d34:2afae3ac1562fce5c7b49fbdda7ebe63
+32cc6b20b5094ef0a0b1e0222b9ab749:e8fa326212611639b26e41d8b5c5bc25
+
+• 1080p-CBR
+https://a207avoddashs3ww-a.akamaihd.net/3$0CicIAhILCgklaj0lO11DaycgJTABUgaAwAKB8AN6A4C4F4IBAQGIAQQYAQ/ondemand/iad_2/710c/1829/2a53/486b-86da-c1baf570530e/338f68c0-0a57-42b1-9f26-83699fa5ccb0_corrected.mpd?encoding=segmentBase
+1949c80fdfda4597bf0b032770a403f2:d213dccd3645b5847422d3e8d0223620
+9e7effb726344af0b45a3926d0a26e31:64e50593a3f267e6a6efde76f53ca7e0
+
+• 1080p-VBR
+https://a68avoddashs3ww-a.akamaihd.net/3$0CicIAhILCgklaj0lO11DaycgJTABUgaAwAKB8AN6A4C4F4IBAQGIAQQYAQ/ondemand/iad_2/38b5/b1f3/fe86/45e0-a4ce-f3299dbf53a8/6e74decd-ed2e-4bc9-b207-4aaa448685fc_corrected.mpd?encoding=segmentBase
+dc1e823712344d5abf71a5343fd0df20:0bef8bb5e47c9a28dbd25b97182d0584
+32cc6b20b5094ef0a0b1e0222b9ab749:e8fa326212611639b26e41d8b5c5bc25
+
+• 1080p-H265
+https://a256avoddashs3ww-a.akamaihd.net/3$0CicIAhILCgklaj0lO11DaycgJTABUgaAwAKB8AN6A4C4F4IBAQGIAQQYAQ/ondemand/iad_2/4761/b20f/a8b0/48fa-a6a0-f8b8795df24a/630d4038-f68f-4f82-af4e-46a03764f7c1_corrected.mpd?encoding=segmentBase
+32cc6b20b5094ef0a0b1e0222b9ab749:e8fa326212611639b26e41d8b5c5bc25
+
+
+Tommy Little: Self Diagnosed Genius ISM
+http://avodsls3ww-s.akamaihd.net/ondemand/iad_2/d8c6/0083/8321/4d2a-b780-54f6cb1ec9e0/e26d8208-5a97-4d1b-b49b-0a198e763c9c.ism/manifest

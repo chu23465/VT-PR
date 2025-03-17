@@ -17,7 +17,7 @@
 """
 import logging
 
-from pymp4.exceptions import BoxNotFound
+from .exceptions import BoxNotFound
 
 log = logging.getLogger(__name__)
 
