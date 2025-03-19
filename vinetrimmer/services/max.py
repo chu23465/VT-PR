@@ -62,6 +62,7 @@ class Max(BaseService):
         self.acodec = ctx.parent.params["acodec"]
         self.range = ctx.parent.params["range_"]
         self.alang = ctx.parent.params["alang"]
+        self.quality = ctx.parent.params["quality"] or 1080
         # self.api_region = self.config.get(ctx.obj.profile, {}).get('api_region', 'comet-latam')
 
         # self.license_api = None
