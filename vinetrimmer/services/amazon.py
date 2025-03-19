@@ -75,7 +75,7 @@ class Amazon(BaseService):
 	@click.option("-c", "--cdn", default=None, type=str,
 				  help="CDN to download from, defaults to the CDN with the highest weight set by Amazon.")
 	# UHD, HD, SD. UHD only returns HEVC, ever, even for <=HD only content
-	@click.option("-vq", "--vquality", default="UHD",
+	@click.option("-vq", "--vquality", default="HD",
 				  type=click.Choice(["SD", "HD", "UHD"], case_sensitive=False),
 				  help="Manifest quality to request.")
 	@click.option("-s", "--single", is_flag=True, default=False,
