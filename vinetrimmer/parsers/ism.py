@@ -217,6 +217,7 @@ def parse(*, url=None, data=None, source, session=None, downloader=None):
 					# extra
 					extra=(list(quality_level), list(stream_info),) # Either set size as a attribute of VideoTrack or append to extra here.
 				))
+			"""
 			elif type_info == 'audio':
 				atmos = ( str( quality_level.get('@HasAtmos', 'N/A') ).lower() == "true" ) or ( "ATM" in stream_info.get('@Name', 'N/A') )
 				tracks.append(AudioTrack(
@@ -224,7 +225,7 @@ def parse(*, url=None, data=None, source, session=None, downloader=None):
 					source=source,
 					url=url,
 					# metadata
-					codec=(codec or "").split(".")[0],
+					codec="E-AC3" if codec == "EC-3" else (codec or "").split(".")[0],
 					language=lang,
 					bitrate=bitrate,
 					channels=quality_level.get('@Channels', 'N/A'),
@@ -232,11 +233,12 @@ def parse(*, url=None, data=None, source, session=None, downloader=None):
 					# switches/options
 					descriptor=Track.Descriptor.ISM,
 					# decryption
-					needs_repack=False, # Necessary
+					needs_repack=True, # Necessary
 					encrypted=encrypted,
 					pssh=pssh,
 					kid=kid,
 					# extra
 					extra=(dict(quality_level), dict(stream_info),)
 				))
+			"""
 	return tracks

@@ -6,15 +6,45 @@ Modified to remove Playready DRM instead of Widevine.
  - Progress Bars for decryption ([mp4decrypt](https://github.com/chu23465/bentoOldFork), Shaka)
  - Refresh Token fixed for Amazon service
  - Reprovision .prd after a week
- - ISM manifest support (Microsoft Smooth Streaming) (Few features to be added)
+ - ISM manifest support (Microsoft Smooth Streaming) (WIP/Experimental)
  - N_m3u8DL-RE downloader support
 
+## Broken
+ - `--bitrate CVBR+CBR` is currently broken
+ - Atmos audio with ISM manifest (Amazon) is currently broken (Needs a working init.mp4). If the title has the atmos audio in MPD then it should work. 
+ - ATVP service is currently broken in dev branch
+ - Netflix service is currently broken (will probably be fixed Soon™)
+
+If anyone has any idea how to fix above issues, feel free to open a pull request.
 
 ## Usage
 
-1. Run `install.bat`
+1. Make sure git is installed in your system by running `git --version`. If not refer to [link](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+
+2. Choose a branch, either `dev` or `main`. Use below command to download. (Recommended instead of downloading zip)
+   ```bash
+   git clone -b <branch-name> --single-branch https://github.com/chu23465/VT-PR
+   ```
    
-2. Activate venv using `venv.cmd`.
+3. Navigate and find `install.bat`
+
+4. Run `install.bat`
+   
+5. Activate venv using `venv.cmd`.
+
+6. Run desired command using poetry.
+
+
+## Updating
+
+1. Backup your `vinetrimmer/Cookies/`, `vinetrimmer/Cache/`, `/Downloads` directories just in case.
+   
+2. Open a command prompt and navigate your `VT-PR` directory.
+   
+3. Recall the branch you downloaded and modify below command accordingly:
+   ```bash
+   git pull origin <branch-name>
+   ```
 
 
 ### Config
@@ -124,7 +154,7 @@ Below flags to be passed after the `AMZN` or `Amazon` keyword in command.
 |  -ism, --ism      | Set manifest override to SmoothStreaming. Defaults to DASH w/o this flag.                                             |
 |  -?, -h, --help   | Show this message and exit.                                                                                           |
 
-To get UHD/4k with Amazon, navigate to -
+To get Atmos/UHD/4k with Amazon, navigate to -
 
 ```
 https://www.primevideo.com/region/eu/ontv/code?ref_=atv_auth_red_aft

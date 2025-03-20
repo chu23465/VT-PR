@@ -15,6 +15,7 @@ import yaml
 from vinetrimmer import config
 from vinetrimmer.utils.collections import as_list
 
+from sys import platform
 
 def load_yaml(path):
 	if not os.path.isfile(path):
@@ -239,12 +240,11 @@ async def saldl(uri, out, headers=None, proxy=None):
 
 
 async def m3u8dl(uri: str, out: str, track):
-	executable = shutil.which("N_m3u8DL-RE") or shutil.which("m3u8DL")
+	executable = shutil.which("N_m3u8DL-RE") or shutil.which("m3u8DL") or "/usr/bin/N_m3u8DL-RE"
 	if not executable:
 		raise EnvironmentError("N_m3u8DL-RE executable not found...")
 	
-	ffmpeg_binary = shutil.which("ffmpeg")
-
+	ffmpeg_binary = shutil.which("ffmpeg") or "/usr/bin/ffmpeg"
 	arguments = [
 		executable,
 		uri,
@@ -257,11 +257,10 @@ async def m3u8dl(uri: str, out: str, track):
 		"--download-retry-count", "8",
 		"--ffmpeg-binary-path", ffmpeg_binary,
 		"--binary-merge",
-		"--decryption-engine", "SHAKA_PACKAGER",
-		"--http-request-timeout", "8",
-		"--live-real-time-merge"
 	]
-
+	if not ("linux" in platform):
+		arguments.append("--http-request-timeout")
+		arguments.append("8")
 	if track.__class__.__name__ == "VideoTrack":
 		if track.height:
 			arguments.extend([

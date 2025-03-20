@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from sys import platform
+
 import base64
 import hashlib
 import json
@@ -75,7 +77,7 @@ class Amazon(BaseService):
 	@click.option("-c", "--cdn", default=None, type=str,
 				  help="CDN to download from, defaults to the CDN with the highest weight set by Amazon.")
 	# UHD, HD, SD. UHD only returns HEVC, ever, even for <=HD only content
-	@click.option("-vq", "--vquality", default="UHD",
+	@click.option("-vq", "--vquality", default="HD",
 				  type=click.Choice(["SD", "HD", "UHD"], case_sensitive=False),
 				  help="Manifest quality to request.")
 	@click.option("-s", "--single", is_flag=True, default=False,
@@ -83,7 +85,7 @@ class Amazon(BaseService):
 	@click.option("-am", "--amanifest", default="H265",
 				  type=click.Choice(["CVBR", "CBR", "H265"], case_sensitive=False),
 				  help="Manifest to use for audio. Defaults to H265 if the video manifest is missing 640k audio.")
-	@click.option("-aq", "--aquality", default="SD",
+	@click.option("-aq", "--aquality", default="HD",
 				  type=click.Choice(["SD", "HD", "UHD"], case_sensitive=False),
 				  help="Manifest quality to request for audio. Defaults to the same as --quality.")
 	@click.option("-ism", "--ism", is_flag=True, default=False,
@@ -115,7 +117,11 @@ class Amazon(BaseService):
 
 		self.cdm = ctx.obj.cdm
 		self.profile = ctx.obj.profile
-
+		if "linux" in platform:
+			import yaml
+			#Read YAML file
+			with open("/content/vinetrimmer/config/Services/amazon.yml", 'r') as stream:
+				self.config = yaml.safe_load(stream)
 		self.region: dict[str, str] = {}
 		self.endpoints: dict[str, str] = {}
 		self.device: dict[str, str] = {}
@@ -411,6 +417,7 @@ class Amazon(BaseService):
 				video_codec="H265" if manifest_type == "H265" else "H264",
 				bitrate_mode="CVBR" if manifest_type != "CBR" else "CBR",
 				quality=self.aquality or self.vquality,
+				manifest_type="DASH",
 				hdr=None,
 				ignore_errors=True
 			)
@@ -506,7 +513,8 @@ class Amazon(BaseService):
 				
 				# replace the audio tracks with DV manifest version if atmos is present
 				if any(x for x in uhd_audio_mpd.audios if x.atmos):
-						tracks.audios = uhd_audio_mpd.audios
+					print("Hello")
+					tracks.audios = uhd_audio_mpd.audios
 
 		for video in tracks.videos:
 			try:

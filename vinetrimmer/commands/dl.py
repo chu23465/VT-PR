@@ -98,7 +98,7 @@ def get_cdm(log, service, profile=None, cdm_name=None):
 			device = Device.load(os.path.join(directories.devices, f"{cdm_name}.wvd"))
 		except:
 			device_path = os.path.abspath(os.path.join(directories.devices, f"{cdm_name}.prd"))
-			if ( int( time.time() ) - int( os.path.getmtime( device_path ) ) ) > 600000: #roughly a week
+			if ( int( time.time() ) - int( os.path.getmtime( device_path ) ) ) > 160000: #roughly 2 days
 				try:
 					reprovision_device(device_path)
 					log.info(f" + Reprovisioned Playready Device (.prd) file, {cdm_name}")
