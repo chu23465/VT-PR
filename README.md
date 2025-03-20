@@ -5,7 +5,7 @@ Modified to remove Playready DRM instead of Widevine.
 ## Features
  - Progress Bars for decryption ([mp4decrypt](https://github.com/chu23465/bentoOldFork), Shaka)
  - Refresh Token fixed for Amazon service
- - Reprovision .prd after a week
+ - Reprovision .prd after 2 days
  - ISM manifest support (Microsoft Smooth Streaming) (WIP/Experimental)
  - N_m3u8DL-RE downloader support
 
